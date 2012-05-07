@@ -1,0 +1,71 @@
+unit Unit2;
+
+{$mode objfpc}{$H+}
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  ExtCtrls;
+
+function upravSmer(smer, lastL, lastT, width, height: integer; lopta: TImage) : integer;
+function normalize(smer : integer) : integer;
+
+implementation
+
+function normalize(smer : integer) : integer;
+begin
+  while (smer > 360) do smer := smer - 180;
+  while (smer < 0 ) do smer := smer + 180;
+  normalize := smer;
+end;
+
+function upravSmer(smer, lastL, lastT, width, height: integer; lopta: TImage) : integer;
+begin
+// Kraje hracieho pola
+  // vrch
+  if (lopta.Top <= 0)  then begin
+    if (lastL < lopta.left) then
+      begin upravSmer := normalize(-smer); exit; end
+    else
+      begin upravSmer := normalize(270 - (smer - 270)); exit; end;
+  end;
+
+  // lava stena
+  if (lopta.left <= 0) then begin
+    if lastT < lopta.Top then
+      begin upravSmer := normalize(180 - smer); exit; end
+    else
+      begin upravSmer := normalize(90 - (smer - 90)); exit; end;
+  end;
+
+  // prava stena
+  if (lopta.left + lopta.Width >= width) then begin
+    if lastT < lopta.Top then
+      begin upravSmer := normalize(270 - (smer - 270)); exit; end
+    else
+      begin upravSmer := normalize(360 - (smer - 180)); exit; end;
+  end;
+
+  // spodok -> prehra??
+  if (lopta.Top + lopta.Height >= height) then begin
+    if (lastL < lopta.left) then
+      begin upravSmer := normalize(90 - (smer - 90)); exit; end
+    else
+      begin upravSmer := normalize(360 - (smer - 180)); exit; end;
+  end;
+
+// bumper
+  for i := lopta.Left to lopta.Left + lopta.Width do begin
+    for j := lopta.Top to lopta.Top + lopta.Height do begin
+      if grid[i][j] <> NULL then score.
+    end;
+  end;
+
+
+
+  upravSmer := smer;
+end;
+
+
+end.
+
