@@ -26,7 +26,7 @@ type
     function upravSmer(lastL, lastT: integer) : integer;
     function odraz(lastL, lastT, odkial : integer) : integer;
     procedure addScore(kolko : integer);
-    procedure addToGrid(var what : TImage);
+    procedure addToGrid(var what : TImage; typ, id : integer);
     procedure removeFromGrid(var what : TImage);
     procedure clearGrid();
     procedure respawnPad();
@@ -35,20 +35,31 @@ type
     procedure win();
     procedure lose();
     procedure modLife(kolko : integer);
+    procedure despawnBricks();
+    procedure despawnBrick(index : integer);
   private
     { private declarations }
   public
     { public declarations }
   end;
+type
+  gridPoint = record
+    typ : integer;
+    id : integer;
+  end;
 
 var
   Fgame: TFgame;
-  grid: array[0..2000,0..2000] of pointer;
-  bricks: array[0..5000] of TImage;
+  grid: array[0..2000,0..2000] of gridPoint;
+  things: array[0..5,0..5000] of TImage;
+  left : array[0..5] of integer;
+  rem : array[0..5] of integer;
+  // 0 bricks
+  // 1 pad placeholder, nothing is added
   pause, finished: boolean;
   pi: real;
   xleft, yleft: real;
-  smer, PADspeed, bricksLeft, lives, BALLspeed, fillPercent: integer;
+  smer, PADspeed, lives, BALLspeed, fillPercent: integer;
 
 implementation
 
@@ -77,34 +88,39 @@ begin
   pad.Top:= 456;
   ball.Left:= 232;
   ball.Top:= 372;
-  addToGrid(pad);
+  addToGrid(pad, 1, 0);
   smer := normalize360(290 + random(140));
 end;
 
 procedure TFgame.genj();
 var i, j : integer;
 begin
-  bricksLeft := 0;
+  despawnBricks();
+  rem[0] := 0;
   for i := 1 to (width div 20) - (width div (20 * 20)) - 1 do
     for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
       if (random(100 div 20) = 1) then begin
-        bricks[bricksLeft] := TImage.Create(self);
-        bricks[bricksLeft].Parent := Self;
-        bricks[bricksLeft].Left:= i * 20 + i;
-        bricks[bricksLeft].top:= j * 10 + j;
-        bricks[bricksLeft].Width := 18;
-        bricks[bricksLeft].Height := 8;
-        bricks[bricksLeft].Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
-        bricks[bricksLeft].Canvas.FillRect(clientrect);
-        addToGrid(bricks[bricksLeft]);
-        inc(bricksLeft);
+        things[0][rem[0]] := TImage.Create(self);
+        things[0][rem[0]].Parent := Self;
+        things[0][rem[0]].Left:= i * 20 + i;
+        things[0][rem[0]].top:= j * 10 + j;
+        things[0][rem[0]].Width := 18;
+        things[0][rem[0]].Height := 8;
+        things[0][rem[0]].Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
+        things[0][rem[0]].Canvas.FillRect(clientrect);
+        addToGrid(things[0][rem[0]], 0, rem[0]);
+        inc(rem[0]);
       end;
+  dec(rem[0]);
 end;
 
 procedure TFgame.FormCreate(Sender: TObject);
+var i, j : integer;
 begin
-   randomize;
    pi := 3.1459;
+   for i := 0 to 5 do
+     for j := 0 to 5000 do
+       things[i][j] := NIL;
 end;
 
 procedure TFgame.FormKeyPress(Sender: TObject; var Key: char);
@@ -122,7 +138,7 @@ begin
   tmp := num + rem;
   num := round(tmp);
   rem := tmp - num;
-  _round := round (num);
+  _round := round(num);
 end;
 
 procedure TFgame.go();
@@ -142,10 +158,10 @@ begin
   if (pause) then pause := false; // unpause on pad moving
   removeFromGrid(pad);
   pad.Left:= pad.Left + o * PADspeed;
-  // normalize
+  // prevent going out of window
   if pad.Left <= 0 then pad.Left:= 1;
   if pad.Left + pad.Width > width then pad.Left:= width - pad.Width;
-  addToGrid(pad);
+  addToGrid(pad, 1, 0);
 end;
 
 procedure TFgame.Timer1Timer(Sender: TObject);
@@ -169,8 +185,7 @@ begin
 end;
 
 function TFgame.upravSmer(lastL, lastT: integer) : integer;
-var temp : TImage;
-  i, j : integer;
+var i, j : integer;
 begin
 // Kraje hracieho pola
   // vrch
@@ -199,29 +214,48 @@ begin
 // ostatne
   for i := ball.Left to ball.Left + ball.Width do
     for j := ball.Top to ball.Top + ball.Height do
-      if grid[i][j] <> NIL then begin
-        // pad
-        if grid[i][j] = @pad then begin
-          upravSmer := odraz(lastL, lastT, 3);
-          ball.Top:= pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
-          addScore(1);
-          exit;
+      begin
+        if grid[i][j].typ = -1 then
+          continue;
+
+        case grid[i][j].typ of
+          1 : begin // pad
+            upravSmer := odraz(lastL, lastT, 3);
+            ball.Top:= pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
+            addScore(1);
+            exit;
+          end;
+          0 : begin // tehla
+            despawnBrick(grid[i][j].id);
+            addScore(10);
+            // vypocitaj odraz
+            // odraz
+          end;
         end;
-        // tehla
-        temp := TImage(grid[i][j]^);
-        removeFromGrid(temp);
-        addScore(10);
-        // vypocitaj odraz
-        // odraz
-        temp.Destroy;
-        dec(bricksLeft);
-        if (bricksLeft = 0) then win;
-
       end;
-
-
-
   upravSmer := smer;
+end;
+
+procedure TFgame.despawnBrick(index : integer);
+begin
+  if things[0][index] <> NIL then begin
+    removeFromGrid(things[0][index]);
+    things[0][index].Destroy;
+    things[0][index] := NIL;
+    dec(rem[0]);
+    if rem[0] = -1 then win();
+  end;
+end;
+
+procedure TFgame.despawnBricks();
+var i : integer;
+begin
+  for i := 0 to 5000 do
+    if things[0][i] <> NIL then begin
+      removeFromGrid(things[0][i]);
+      things[0][i].Destroy;
+      things[0][i] := NIL;
+    end;
 end;
 
 procedure TFgame.modlife(kolko : integer);
@@ -241,17 +275,9 @@ end;
 function TFgame.odraz(lastL, lastT, odkial : integer) : integer;
 begin
   case odkial of
-    1 : begin // lava
-      if lastT < ball.Top then
-        begin odraz := 360 - smer; exit; end
-      else
-        begin odraz := 360 - smer; exit; end;
-    end;
-    2 : begin // prava
-      if lastT < ball.Top then
-        begin odraz := 360 - smer; exit; end
-      else
-        begin odraz := 360 - smer; exit; end;
+    1, 2 : begin // lava, prava
+      odraz := 360 - smer;
+      exit;
     end;
     3 : begin // spodna
       if (lastL < ball.left) then
@@ -280,15 +306,18 @@ var i, j : integer;
 begin
   for i := what.Left to what.Left + what.Width do
     for j := what.Top to what.Top + what.Height do
-      grid[i][j] := NIL;
+      grid[i][j].typ := -1;
 end;
 
-procedure TFgame.addToGrid(var what : TImage);
+procedure TFgame.addToGrid(var what : TImage; typ, id : integer);
 var i, j : integer;
 begin
   for i := what.Left to what.Left + what.Width do
     for j := what.Top to what.Top + what.Height do
-      grid[i][j] := @what;
+      begin
+        grid[i][j].typ := typ;
+        grid[i][j].id := id;
+    end;
 end;
 
 procedure TFgame.clearGrid();
@@ -296,7 +325,7 @@ var i, j : integer;
 begin
   for i := 0 to 2000 do
     for j := 0 to 2000 do
-      grid[i][j] := NIL;
+      grid[i][j].typ := -1;
 end;
 
 end.

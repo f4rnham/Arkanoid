@@ -1,11 +1,11 @@
 object Fgame: TFgame
-  Left = 280
-  Height = 488
-  Top = 305
-  Width = 540
+  Left = 262
+  Height = 500
+  Top = 307
+  Width = 1278
   Caption = 'mY gAmE'
-  ClientHeight = 488
-  ClientWidth = 540
+  ClientHeight = 500
+  ClientWidth = 1278
   Color = clActiveCaption
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress

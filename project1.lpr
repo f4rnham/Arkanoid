@@ -13,6 +13,7 @@ uses
 
 begin
   Application.Initialize;
+  randomize;
   Application.CreateForm(TFmenu, Fmenu);
   Application.CreateForm(TFgame, Fgame);
   Application.Run;
