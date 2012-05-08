@@ -1,0 +1,35 @@
+object input: Tinput
+  Left = 186
+  Height = 240
+  Top = 409
+  Width = 320
+  Caption = 'meno'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '0.9.30'
+  object inp: TEdit
+    Left = 56
+    Height = 23
+    Top = 66
+    Width = 214
+    TabOrder = 0
+    Text = 'MrSmith'
+  end
+  object ok: TButton
+    Left = 108
+    Height = 46
+    Top = 108
+    Width = 108
+    Caption = 'OK'
+    OnClick = okClick
+    TabOrder = 1
+  end
+  object nadpis: TStaticText
+    Left = 74
+    Height = 22
+    Top = 10
+    Width = 174
+    Caption = 'NULL'
+    TabOrder = 2
+  end
+end
