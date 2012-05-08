@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, windows;
+  ExtCtrls, StdCtrls, PopupNotifier, windows;
 type
 
   { TMAIN }
@@ -48,8 +48,8 @@ var
   bricks: array[0..500] of TImage;
   pause, finished: boolean;
   pi: real;
-  i, j : integer;
-  smer, BALLspeed, PADspeed, bricksLeft, lives: integer;
+  xleft, yleft: real;
+  smer, PADspeed, bricksLeft, lives, BALLspeed, fillPercent: integer;
 
 implementation
 
@@ -58,9 +58,9 @@ begin
   clearGrid();
   BALLspeed := 5;
   PADspeed := 20;
-  bricksLeft := 20;
   finished := false;
   lives := 5;
+  fillPercent := 20;
   modLife(0);
   genj();
   respawnPad();
@@ -69,6 +69,8 @@ end;
 procedure TMAIN.respawnPad();
 begin
   pause := true;
+  xleft := 0;
+  yleft := 0;
   removeFromGrid(pad);
   pad.Left:= 232;
   pad.Top:= 456;
@@ -79,19 +81,24 @@ begin
 end;
 
 procedure TMAIN.genj();
-var i : integer;
+var i, j : integer;
 begin
-   for i := 1 to bricksLeft do begin
-     bricks[i] := TImage.Create(self);
-     bricks[i].Parent := Self;
-     bricks[i].Left:= random(Width - 10) + 5;
-     bricks[i].top:= random(height) - (height - pad.Top - 20);
-     bricks[i].Width:=10;
-     bricks[i].Height:=10;
-     bricks[i].Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
-     bricks[i].Canvas.FillRect(clientrect);
-     addToGrid(bricks[i]);
-   end;
+  bricksLeft := 0;
+  for i := 1 to width div 20 do
+    for j := 1 to (height - 100) div 10 do
+      if (random(100 div 20) = 1) then begin
+        bricks[bricksLeft] := TImage.Create(self);
+        bricks[bricksLeft].Parent := Self;
+        bricks[bricksLeft].Left:= i * 20 + i;
+        bricks[bricksLeft].top:= j * 10 + j;
+        bricks[bricksLeft].Width := 18;
+        bricks[bricksLeft].Height := 8;
+        bricks[bricksLeft].Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
+        bricks[bricksLeft].Canvas.FillRect(clientrect);
+        addToGrid(bricks[bricksLeft]);
+        inc(bricksLeft);
+      end;
+  dec(bricksLeft);
 end;
 
 procedure TMAIN.FormCreate(Sender: TObject);
@@ -110,15 +117,25 @@ begin
   end;
 end;
 
+function _round(num : real; var rem : real) : integer;
+var tmp : real;
+begin
+  tmp := num + rem;
+  num := round(tmp);
+  rem := tmp - num;
+  _round := round (num);
+end;
+
 procedure TMAIN.go();
-var lastT, lastL : integer;
+var lastT, lastL, i : integer;
 begin
   lastT := ball.Top;
   lastL := ball.Left;
-  ball.left:= ball.left + round(BALLspeed * sin(smer / 180 * pi));
-  ball.top:= ball.top - round(BALLspeed * cos(smer / 180 * pi));
-
-  smer := upravSmer(lastL, lastT);
+  for i := 1 to BALLspeed do begin
+    ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
+    ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
+    smer := upravSmer(lastL, lastT);
+  end;
 end;
 
 procedure TMAIN.movePad(o: integer);
@@ -150,11 +167,14 @@ end;
 
 function TMAIN.upravSmer(lastL, lastT: integer) : integer;
 var temp : TImage;
+  i, j : integer;
 begin
 // Kraje hracieho pola
   // vrch
   if (ball.Top <= 0)  then begin
-    upravSmer := odraz(lastL, lastT, 4); exit;
+    upravSmer := odraz(lastL, lastT, 4);
+    ball.Top:= 1;
+    exit;
   end;
 
   // lava stena
@@ -168,7 +188,7 @@ begin
   end;
 
   // spodok -> prehra
-  if (ball.Top + ball.Height >= height) then begin
+  if (ball.Top {+ (ball.Height div 2)} >= height) then begin
     modLife(-1);
     respawnPad;
   end;
@@ -245,7 +265,7 @@ begin
     end;
     4 : begin // horna
       if (lastL < ball.left) then
-        begin odraz := normalize180(-smer); exit; end
+        begin odraz := normalize180(180 - smer); exit; end
       else
         begin odraz := normalize180(270 - (smer - 270)); exit; end;
     end;
@@ -253,12 +273,14 @@ begin
 end;
 
 procedure TMAIN.addScore(kolko : integer);
+var i : integer;
 begin
   Val(score.Caption, i);
   score.Caption := IntToStr(i + kolko);
 end;
 
 procedure TMAIN.removeFromGrid(var what : TImage);
+var i, j : integer;
 begin
   for i := what.Left to what.Left + what.Width do
     for j := what.Top to what.Top + what.Height do
@@ -266,6 +288,7 @@ begin
 end;
 
 procedure TMAIN.addToGrid(var what : TImage);
+var i, j : integer;
 begin
   for i := what.Left to what.Left + what.Width do
     for j := what.Top to what.Top + what.Height do
@@ -273,6 +296,7 @@ begin
 end;
 
 procedure TMAIN.clearGrid();
+var i, j : integer;
 begin
   for i := 0 to 2000 do
     for j := 0 to 2000 do
