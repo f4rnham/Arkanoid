@@ -1,0 +1,19 @@
+object Fmenu: TFmenu
+  Left = 230
+  Height = 356
+  Top = 381
+  Width = 410
+  Caption = 'Fmenu'
+  ClientHeight = 356
+  ClientWidth = 410
+  LCLVersion = '0.9.30'
+  object start: TButton
+    Left = 251
+    Height = 54
+    Top = 271
+    Width = 142
+    Caption = 'Start game!'
+    OnClick = startClick
+    TabOrder = 0
+  end
+end
