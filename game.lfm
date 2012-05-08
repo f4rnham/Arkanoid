@@ -1,11 +1,11 @@
 object Fgame: TFgame
-  Left = 342
+  Left = 150
   Height = 500
-  Top = 493
-  Width = 1278
+  Top = 411
+  Width = 646
   Caption = 'mY gAmE'
   ClientHeight = 500
-  ClientWidth = 1278
+  ClientWidth = 646
   Color = clWhite
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -376,8 +376,8 @@ object Fgame: TFgame
     Left = 22
     Height = 16
     Top = 18
-    Width = 67
-    Caption = 'livesCounter'
+    Width = 26
+    Caption = '#INF'
     ParentColor = False
   end
   object Timer1: TTimer

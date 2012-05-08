@@ -1,0 +1,34 @@
+object Error: TError
+  Left = 402
+  Height = 240
+  Top = 513
+  Width = 320
+  Caption = 'Error'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '0.9.30'
+  object errText: TStaticText
+    Left = 30
+    Height = 152
+    Top = 34
+    Width = 257
+    Caption = 'NULL'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -24
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentBidiMode = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object ok: TButton
+    Left = 116
+    Height = 34
+    Top = 196
+    Width = 84
+    Caption = 'OK'
+    OnClick = okClick
+    TabOrder = 1
+  end
+end

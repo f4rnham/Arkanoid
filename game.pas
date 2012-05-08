@@ -37,6 +37,7 @@ type
     procedure modLife(kolko : integer);
     procedure despawnBricks();
     procedure despawnBrick(index : integer);
+    procedure init(nejm: string; fillP, l : integer);
   private
     { private declarations }
   public
@@ -60,10 +61,19 @@ var
   pi: real;
   xleft, yleft: real;
   smer, PADspeed, lives, BALLspeed, fillPercent: integer;
+  Pname : string;
 
 implementation
 
 uses mainmenu;
+
+procedure TFgame.init(nejm : string; fillP, l : integer);
+begin
+  score.Caption:= nejm;
+  Pname := nejm;
+  fillPercent := fillP;
+  lives := l;
+end;
 
 procedure TFgame.resetAll();
 begin
@@ -71,8 +81,6 @@ begin
   BALLspeed := 5;
   PADspeed := 20;
   finished := false;
-  lives := 5;
-  fillPercent := 20;
   modLife(0);
   genj();
   respawnPad();
@@ -117,10 +125,12 @@ end;
 procedure TFgame.FormCreate(Sender: TObject);
 var i, j : integer;
 begin
-   pi := 3.1459;
-   for i := 0 to 5 do
-     for j := 0 to 5000 do
-       things[i][j] := NIL;
+  Fgame.SetChildZPosition(ball, 0);
+  Fgame.DoubleBuffered:= true;
+  pi := 3.1459;
+  for i := 0 to 5 do
+    for j := 0 to 5000 do
+      things[i][j] := NIL;
 end;
 
 procedure TFgame.FormKeyPress(Sender: TObject; var Key: char);
@@ -128,7 +138,7 @@ begin
   case Key of
   'a': movePad(-1);
   'd': movePad(1);
-  'p': pause := true;
+  'p': pause := not pause;
   end;
 end;
 
@@ -270,6 +280,7 @@ end;
 
 procedure TFgame.modlife(kolko : integer);
 begin
+  if lives = -1 then exit;
   lives := lives + kolko;
   livesCounter.Caption:= IntToStr(lives);
   if (lives < 1) then lose();

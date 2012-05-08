@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, game, mainmenu;
+  Forms, game, mainmenu, errorreporting, input;
 
 {$R *.res}
 
@@ -16,6 +16,8 @@ begin
   randomize;
   Application.CreateForm(TFmenu, Fmenu);
   Application.CreateForm(TFgame, Fgame);
+  Application.CreateForm(TError, Error);
+  Application.CreateForm(Tinput, Finput);
   Application.Run;
 end.
 

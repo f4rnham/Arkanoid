@@ -1,19 +1,78 @@
 object Fmenu: TFmenu
-  Left = 230
-  Height = 356
-  Top = 381
-  Width = 410
-  Caption = 'Fmenu'
-  ClientHeight = 356
-  ClientWidth = 410
+  Left = 372
+  Height = 392
+  Top = 109
+  Width = 426
+  Caption = 'Hlavne menu'
+  ClientHeight = 392
+  ClientWidth = 426
+  OnCreate = FormCreate
   LCLVersion = '0.9.30'
-  object start: TButton
-    Left = 251
+  object startCustom: TButton
+    Left = 269
     Height = 54
-    Top = 271
+    Top = 325
     Width = 142
-    Caption = 'Start game!'
-    OnClick = startClick
+    Caption = 'Start custom game!'
+    OnClick = startCustomClick
     TabOrder = 0
+  end
+  object fillPercentH: TStaticText
+    Left = 20
+    Height = 14
+    Top = 14
+    Width = 76
+    Caption = 'Pocet kociek'
+    TabOrder = 1
+  end
+  object fillPercent: TTrackBar
+    Left = 16
+    Height = 22
+    Top = 44
+    Width = 142
+    Max = 100
+    Position = 20
+    TabOrder = 2
+  end
+  object livesH: TStaticText
+    Left = 32
+    Height = 30
+    Top = 78
+    Width = 114
+    AutoSize = True
+    Caption = 'Pocet zivotov'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -24
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 3
+  end
+  object lives: TEdit
+    Left = 14
+    Height = 23
+    Top = 116
+    Width = 60
+    TabOrder = 4
+    Text = '5'
+  end
+  object infiLives: TCheckBox
+    Left = 88
+    Height = 19
+    Top = 118
+    Width = 84
+    Caption = 'nekonecno?'
+    OnChange = infiLivesChange
+    TabOrder = 5
+  end
+  object randomB: TCheckBox
+    Left = 282
+    Height = 19
+    Top = 62
+    Width = 74
+    Caption = 'Nahodne?'
+    OnChange = randomBChange
+    TabOrder = 6
   end
 end
