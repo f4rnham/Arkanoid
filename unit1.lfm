@@ -1,7 +1,7 @@
 object MAIN: TMAIN
-  Left = 339
+  Left = 280
   Height = 488
-  Top = 338
+  Top = 305
   Width = 540
   Caption = 'mY gAmE'
   ClientHeight = 488
@@ -370,6 +370,14 @@ object MAIN: TMAIN
     Top = 8
     Width = 7
     Caption = '0'
+    ParentColor = False
+  end
+  object livesCounter: TLabel
+    Left = 22
+    Height = 16
+    Top = 18
+    Width = 67
+    Caption = 'livesCounter'
     ParentColor = False
   end
   object Timer1: TTimer
