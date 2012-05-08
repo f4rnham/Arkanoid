@@ -31,7 +31,6 @@ type
     procedure clearGrid();
     procedure respawnPad();
     procedure resetAll();
-    function normalize180(smer : integer) : integer;
     function normalize360(smer : integer) : integer;
     procedure win();
     procedure lose();
@@ -45,7 +44,7 @@ type
 var
   Fgame: TFgame;
   grid: array[0..2000,0..2000] of pointer;
-  bricks: array[0..500] of TImage;
+  bricks: array[0..5000] of TImage;
   pause, finished: boolean;
   pi: real;
   xleft, yleft: real;
@@ -86,8 +85,8 @@ procedure TFgame.genj();
 var i, j : integer;
 begin
   bricksLeft := 0;
-  for i := 1 to (width div 20) do
-    for j := 1 to ((height - 100) div 10) do
+  for i := 1 to (width div 20) - (width div (20 * 20)) - 1 do
+    for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
       if (random(100 div 20) = 1) then begin
         bricks[bricksLeft] := TImage.Create(self);
         bricks[bricksLeft].Parent := Self;
@@ -232,13 +231,6 @@ begin
   if (lives < 1) then lose();
 end;
 
-function TFgame.normalize180(smer : integer) : integer;
-begin
-  while (smer > 360) do smer := smer - 180;
-  while (smer < 0 ) do smer := smer + 180;
-  normalize180 := smer;
-end;
-
 function TFgame.normalize360(smer : integer) : integer;
 begin
   while (smer > 360) do smer := smer - 360;
@@ -253,25 +245,25 @@ begin
       if lastT < ball.Top then
         begin odraz := 360 - smer; exit; end
       else
-        begin odraz := normalize180(90 - (smer - 90)); exit; end;
+        begin odraz := 360 - smer; exit; end;
     end;
     2 : begin // prava
       if lastT < ball.Top then
-        begin odraz := normalize180(270 - (smer - 270)); exit; end
+        begin odraz := 360 - smer; exit; end
       else
-        begin odraz := normalize180(360 - (smer - 180)); exit; end;
+        begin odraz := 360 - smer; exit; end;
     end;
     3 : begin // spodna
       if (lastL < ball.left) then
-        begin odraz := normalize180(180 - smer); exit; end
+        begin odraz := 180 - smer; exit; end
       else
-        begin odraz := normalize180(360 - (smer - 180)); exit; end;
+        begin odraz := 540 - smer; exit; end;
     end;
     4 : begin // horna
       if (lastL < ball.left) then
-        begin odraz := normalize180(180 - smer); exit; end
+        begin odraz := abs(smer - 90) + 90; exit; end
       else
-        begin odraz := normalize180(270 - (smer - 270)); exit; end;
+        begin odraz := 540 - smer; exit; end;
     end;
   end;
 end;
