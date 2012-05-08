@@ -185,7 +185,7 @@ begin
 end;
 
 function TFgame.upravSmer(lastL, lastT: integer) : integer;
-var i, j : integer;
+var i, j, radius, sx, sy : integer;
 begin
 // Kraje hracieho pola
   // vrch
@@ -211,10 +211,19 @@ begin
     respawnPad;
   end;
 
-// ostatne
+  // ostatne
+  sx := (2 * ball.Left + ball.Width) div 2 ;
+  sy := (2 * ball.Top + ball.Height) div 2 ;
+  radius := sy - ball.Top;
+
   for i := ball.Left to ball.Left + ball.Width do
     for j := ball.Top to ball.Top + ball.Height do
       begin
+        // is not within ball
+        if ((i - sx) * (i - sx) + (j - sy) * (j - sy) > radius * radius) then
+          continue;
+
+        // empty grid point
         if grid[i][j].typ = -1 then
           continue;
 
@@ -229,7 +238,8 @@ begin
             despawnBrick(grid[i][j].id);
             addScore(10);
             // vypocitaj odraz
-            // odraz
+            //upravSmer := odraz(lastL, lastT, random(3) + 1);
+            //exit;
           end;
         end;
       end;
