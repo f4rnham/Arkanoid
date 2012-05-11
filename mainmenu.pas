@@ -65,12 +65,8 @@ end;
 procedure TFmenu.startGame(a, b : integer);
 begin
   Finput.init('Zadajte meno', nejm, nejm);
-  // wait handle...
-
-  //while (Finput.Enabled) do sleep(1);
   Fgame.init(nejm, a, b);
   Hide;
-  Fgame.resetAll();
   Fgame.Show;
 end;
 

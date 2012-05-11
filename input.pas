@@ -60,7 +60,7 @@ end;
 
 function Tinput.pass(c : char) : boolean;
 begin
-  //              cisla                                  capitals                   male
+  //              cisla                                 uppercase                          lowercase
   if (((ord(c) > 47) and (ord(c) < 58)) or ((ord(c) > 64) and (ord(c) < 91)) or ((ord(c) > 96) and (ord(c) < 123))) then
     pass := true
   else
