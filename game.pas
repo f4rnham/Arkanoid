@@ -165,15 +165,17 @@ end;
 procedure TFgame.win();
 begin
   finished := true;
-  FhighScore.updateHS(Pname, _Val(score.Caption));
+  if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
+    FhighScore.showHS();
   Fgame.Hide;
-  FhighScore.showHS();
   Fmenu.Show;
 end;
 
 procedure TFgame.lose();
 begin
   finished := true;
+  if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
+    FhighScore.showHS();
   Fgame.Hide;
   Fmenu.Show;
 end;

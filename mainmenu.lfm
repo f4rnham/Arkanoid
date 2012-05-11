@@ -76,4 +76,13 @@ object Fmenu: TFmenu
     OnChange = randomBChange
     TabOrder = 6
   end
+  object hs: TButton
+    Left = 266
+    Height = 54
+    Top = 243
+    Width = 140
+    Caption = 'Zobraz naj skore'
+    OnClick = hsClick
+    TabOrder = 7
+  end
 end

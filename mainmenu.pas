@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, game, errorreporting, input;
+  ComCtrls, Buttons, game, errorreporting, input, highscore;
 
 type
 
   { TFmenu }
 
   TFmenu = class(TForm)
+    hs: TButton;
     randomB: TCheckBox;
     infiLives: TCheckBox;
     lives: TEdit;
@@ -21,6 +22,7 @@ type
     fillPercent: TTrackBar;
     livesH: TStaticText;
     procedure FormCreate(Sender: TObject);
+    procedure hsClick(Sender: TObject);
     procedure infiLivesChange(Sender: TObject);
     procedure randomBChange(Sender: TObject);
     procedure startCustomClick(Sender: TObject);
@@ -98,6 +100,11 @@ end;
 procedure TFmenu.FormCreate(Sender: TObject);
 begin
   nejm := 'MrSmith';
+end;
+
+procedure TFmenu.hsClick(Sender: TObject);
+begin
+  FhighScore.showHS();
 end;
 
 end.
