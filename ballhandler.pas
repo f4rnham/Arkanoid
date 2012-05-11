@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, helpers;
+  ExtCtrls, helpers, math;
 
 type
   Tball = class
@@ -18,7 +18,7 @@ type
     procedure init(t, l, s, sp : integer);
     procedure update();
     function upravSmer(lastL, lastT: integer) : integer;
-    function odraz(lastL, lastT, odkial : integer) : integer;
+    function odraz(lastL, odkial : integer) : integer;
   end;
 implementation
 
@@ -33,28 +33,26 @@ begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
     smer := upravSmer(lastL, lastT);
+    lastT := ball.Top;
+    lastL := ball.Left;
   end;
 end;
 
 function Tball.upravSmer(lastL, lastT: integer) : integer;
-var i, j, radius, sx, sy : integer;
+var i, j, radius, sx, sy, kam : integer;
+  uhol : real;
 begin
 // Kraje hracieho pola
   // vrch
   if (ball.Top <= 0)  then begin
-    upravSmer := odraz(lastL, lastT, 4);
+    upravSmer := odraz(lastL, 4);
     ball.Top:= 1;
     exit;
   end;
 
-  // lava stena
-  if (ball.left <= 0) then begin
-    upravSmer := odraz(lastL, lastT, 1); exit;
-  end;
-
-  // prava stena
-  if (ball.left + ball.Width >= Fgame.width) then begin
-    upravSmer := odraz(lastL, lastT, 2); exit;
+  //      lava stena  or                     prava stena
+  if (ball.left <= 0) or (ball.left + ball.Width >= Fgame.width) then begin
+    upravSmer := odraz(lastL, 1); exit;
   end;
 
   // spodok -> prehra
@@ -81,7 +79,7 @@ begin
 
         case grid[i][j].typ of
           1 : begin // pad
-            upravSmer := odraz(lastL, lastT, 3);
+            upravSmer := odraz(lastL, 3);
             ball.Top:= Fgame.pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
             Fgame.addScore(1);
             exit;
@@ -89,16 +87,21 @@ begin
           0 : begin // tehla
             Fgame.despawnBrick(grid[i][j].id);
             Fgame.addScore(10);
-            // vypocitaj odraz
-            //upravSmer := odraz(lastL, lastT, random(3) + 1);
-            //exit;
+            uhol := arccos(abs(j - sy) / sqrt((i - sx) * (i - sx) + (j - sy) * (j - sy))) * (180 / pi);
+            kam := 3; // spodna
+            if (uhol < 91) then
+              kam := 1; // lava / prava
+            if (uhol < 46) then
+              kam := 4; // horna
+            upravSmer := odraz(lastL, kam);
+            exit;
           end;
         end;
       end;
   upravSmer := smer;
 end;
 
-function Tball.odraz(lastL, lastT, odkial : integer) : integer;
+function Tball.odraz(lastL, odkial : integer) : integer;
 begin
   case odkial of
     1, 2 : begin // lava, prava
@@ -125,8 +128,8 @@ begin
   ball := TImage.Create(Fgame);
   created := true;
   ball.Parent := Fgame;
-  ball.Width := 100;
-  ball.Height := 100;
+  ball.Width := 10;
+  ball.Height := 10;
   ball.Canvas.Brush.Color:= Fgame.Color;
   ball.Canvas.FillRect(ball.ClientRect);
   ball.Canvas.Brush.Color := randomColor(Fgame.Color);

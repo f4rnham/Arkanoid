@@ -70,7 +70,7 @@ begin
 
   // default
   ballCnt := 0;
-  PADspeed := 20;
+  PADspeed := 40;
   finished := false;
   modLife(0);
   genj();
@@ -126,7 +126,7 @@ var i, j : integer;
 begin
   Fgame.DoubleBuffered:= true;
   pause := true;
-  pi := 3.1459;
+  pi := 3.1415926535897932384626433832795;
   for i := 0 to 500 do
     balls[i] := Tball.Create;
   for i := 0 to 5 do
