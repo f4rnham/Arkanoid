@@ -106,14 +106,14 @@ begin
   rem[0] := 0;
   for i := 1 to (width div 20) - (width div (20 * 20)) - 1 do
     for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
-      if (random(100 div 20) = 1) then begin
+      if (random(100) < fillPercent) then begin
         things[0][rem[0]] := TImage.Create(self);
         things[0][rem[0]].Parent := Self;
         things[0][rem[0]].Left:= i * 20 + i;
         things[0][rem[0]].top:= j * 10 + j;
         things[0][rem[0]].Width := 18;
         things[0][rem[0]].Height := 8;
-        things[0][rem[0]].Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
+        things[0][rem[0]].Canvas.Brush.Color := randomColor(Fgame.Color);
         things[0][rem[0]].Canvas.FillRect(clientrect);
         addToGrid(things[0][rem[0]], 0, rem[0]);
         inc(rem[0]);

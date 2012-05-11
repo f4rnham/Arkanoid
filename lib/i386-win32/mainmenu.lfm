@@ -31,6 +31,7 @@ object Fmenu: TFmenu
     Top = 44
     Width = 142
     Max = 100
+    Min = 1
     Position = 20
     TabOrder = 2
   end

@@ -129,7 +129,7 @@ begin
   ball.Height := 100;
   ball.Canvas.Brush.Color:= Fgame.Color;
   ball.Canvas.FillRect(ball.ClientRect);
-  ball.Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
+  ball.Canvas.Brush.Color := randomColor(Fgame.Color);
   ball.Canvas.Ellipse(0, 0, ball.Width, ball.Height);
   ball.Visible:= true;
   ball.Left:= l;

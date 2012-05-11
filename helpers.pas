@@ -5,11 +5,12 @@ unit helpers;
 interface
 
 uses
-  Classes, SysUtils; 
+  Classes, SysUtils, Graphics;
 
 function _Val(s : string) : int64;
 function normalize360(smer : integer) : integer;
 function _round(num : real; var rem : real) : integer;
+function randomColor(noo : TColor) : TColor;
 
 implementation
 
@@ -38,6 +39,15 @@ begin
   num := round(tmp);
   rem := tmp - num;
   _round := round(num);
+end;
+
+function randomColor(noo : TColor) : TColor;
+var c : TColor;
+begin
+  c := noo;
+  while c = noo do
+    c := rgbtocolor(random(255),random(255),random(255));
+  randomColor := c;
 end;
 
 end.

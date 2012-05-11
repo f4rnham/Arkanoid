@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, game, mainmenu, errorreporting, input;
+  Forms, game, mainmenu, errorreporting, input, highscore, helpers;
 
 {$R *.res}
 
@@ -17,7 +17,8 @@ begin
   Application.CreateForm(TFmenu, Fmenu);
   Application.CreateForm(TFgame, Fgame);
   Application.CreateForm(TError, Error);
-  Application.CreateForm(Tinput, input);
+  Application.CreateForm(Tinput, Finput);
+  Application.CreateForm(ThighScore, FhighScore);
   Application.Run;
 end.
 
