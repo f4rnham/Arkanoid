@@ -93,7 +93,7 @@ var i : integer;
 begin
   pause := true;
 
-  // balls
+  // balls cleanup
   for i := 0 to ballCnt do
     if balls[i].created then begin
       balls[i].ball.Destroy();
@@ -241,6 +241,7 @@ end;
 procedure TFgame.win();
 begin
   finished := true;
+  respawnPad(); // cleanup
   if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
     FhighScore.showHS();
   Fgame.Hide;
@@ -250,6 +251,7 @@ end;
 procedure TFgame.lose();
 begin
   finished := true;
+  respawnPad(); // cleanup
   if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
     FhighScore.showHS();
   score.Caption:= IntToStr(0);

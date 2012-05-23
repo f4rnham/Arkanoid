@@ -44,7 +44,6 @@ end;
 
 function Tball.upravSmer(lastL, lastT: integer) : boolean;
 var i, j, radius, sx, sy, kam : integer;
-  uhol : real;
 begin
   upravSmer := true;
 // Kraje hracieho pola
@@ -95,16 +94,20 @@ begin
             Fgame.addScore(10);
 
             // drop bonus
-            if random(2) = 1 then begin
+            if random(200) = 1 then begin
               inc(rem[2]);
               bonuses[rem[2]].init(j, i, 1, 2);
             end;
-            uhol := arccos(abs(j - sy) / sqrt((i - sx) * (i - sx) + (j - sy) * (j - sy))) * (180 / pi);
-            kam := 3; // spodna
-            if (uhol < 91) then
-              kam := 1; // lava / prava
-            if (uhol < 46) then
-              kam := 4; // horna
+
+            // up and down -> side
+            if (grid[i][j + 1].typ <> -1) and (grid[i][j - 1].typ <> -1) then
+               kam := 1
+            else
+              if grid[i][j + 1].typ <> -1 then // horna stena
+                kam := 4
+              else // spodna
+                kam := 3;
+
             smer := odraz(lastL, kam);
             exit;
           end;
