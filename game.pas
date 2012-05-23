@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, windows, highscore, helpers, ballhandler;
+  ExtCtrls, StdCtrls, windows, highscore, helpers, ballhandler, bonushandler;
 type
 
   { TFgame }
@@ -35,6 +35,7 @@ type
     procedure despawnBricks();
     procedure despawnBrick(index : integer);
     procedure init(nejm: string; fillP, l : integer);
+    procedure spawnBall(x, y : integer);
   private
     { private declarations }
   public
@@ -53,6 +54,7 @@ var
   rem : array[0..5] of integer;
   // 0 bricks
   // 1 pad placeholder, nothing is added
+  bonuses : array[0..2000] of Tbonus;
   balls : array[0..500] of Tball;
   ballCnt: integer;
   pause, finished: boolean;
@@ -64,6 +66,12 @@ implementation
 
 uses mainmenu;
 
+procedure TFgame.spawnBall(x, y : integer);
+begin
+  inc(ballCnt);
+  balls[ballCnt].init(y, x, random(360), 5);
+end;
+
 procedure TFgame.init(nejm : string; fillP, l : integer);
 begin
   clearGrid();
@@ -72,6 +80,7 @@ begin
   lives := l;
 
   // default
+  rem[2] := -1; // 0 bonuses falling
   ballCnt := 0;
   finished := false;
   modLife(0);
@@ -99,6 +108,14 @@ begin
   pad.Left:= 232;
   pad.Top:= 456;
   addToGrid(pad, 1, 0);
+
+  // destroy bonuses
+  for i := 0 to rem[2] do
+    if bonuses[i].created then begin
+      bonuses[i].bonus.Destroy();
+      bonuses[i].created:= false;
+    end;
+  rem[2] := -1;
 end;
 
 procedure TFgame.genj();
@@ -138,8 +155,10 @@ begin
   Fgame.DoubleBuffered:= true;
   pause := true;
   pi := 3.1415926535897932384626433832795;
-  for i := 0 to 500 do
+  for i := 0 to 500 do begin
     balls[i] := Tball.Create;
+    bonuses[i] := Tbonus.Create;
+  end;
   for i := 0 to 5 do
     for j := 0 to 5000 do
       things[i][j] := NIL;
@@ -178,6 +197,7 @@ procedure TFgame.Timer1Timer(Sender: TObject);
 var i : integer;
 begin
   if (pause = false) and (finished = false) then begin
+    // update balls
     i := 0;
     while i <= ballCnt do begin
       if balls[i].update() then
@@ -188,9 +208,32 @@ begin
           respawnPad;
           exit;
         end;
-        balls[i] := balls[ballCnt];
+        balls[i].ball.Destroy;
+        balls[i].created:= false;
+        if ballCnt <> 0 then begin
+          balls[i] := balls[ballCnt];
+          balls[ballCnt] := Tball.Create;
+        end;
         dec(ballCnt);
       end;
+    end;
+
+    // update bonuses
+    i := 0;
+    while i <= rem[2] do begin
+      if not bonuses[i].update() then begin
+        bonuses[i].bonus.Destroy;
+        bonuses[i].created:= false;
+        if rem[2] <> 0 then begin
+          bonuses[i] := bonuses[rem[2]];
+          bonuses[rem[2]] := Tbonus.Create;
+          //bonuses[rem[2]].created:= false;
+          //bonuses[rem[2]].bonus.Destroy;
+          end;
+        dec(rem[2]);
+      end
+      else
+        inc(i);
     end;
   end;
 end;

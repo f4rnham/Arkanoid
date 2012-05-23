@@ -93,6 +93,12 @@ begin
           0 : begin // tehla
             Fgame.despawnBrick(grid[i][j].id);
             Fgame.addScore(10);
+
+            // drop bonus
+            if random(2) = 1 then begin
+              inc(rem[2]);
+              bonuses[rem[2]].init(j, i, 1, 2);
+            end;
             uhol := arccos(abs(j - sy) / sqrt((i - sx) * (i - sx) + (j - sy) * (j - sy))) * (180 / pi);
             kam := 3; // spodna
             if (uhol < 91) then

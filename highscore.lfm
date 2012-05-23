@@ -8,7 +8,7 @@ object highScore: ThighScore
   ClientWidth = 471
   LCLVersion = '0.9.30'
   object cont: TButton
-    Left = 195
+    Left = 199
     Height = 30
     Top = 372
     Width = 86
