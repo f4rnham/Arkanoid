@@ -83,6 +83,7 @@ begin
 
   if loadHS() then begin
     status.Caption:= 'hotovo';
+    table.Canvas.FillRect(table.ClientRect);
     for i := 0 to 14 do begin
       table.Canvas.TextOut(10, 10 + i * 20, names[i]);
       table.Canvas.TextOut(150, 10 + i * 20, IntToStr(scores[i]));
@@ -104,8 +105,12 @@ begin
 end;
 
 function ThighScore.loadHS() : boolean;
-var i, err : integer;
+var i, j, err : integer;
 begin
+  for i := 0 to 15 do begin
+    Delete(names[i], 1, length(names[i]));
+    scores[i] := 0;
+  end;
   {$I-}
   AssignFile(f,'hs.txt');
   reset(f);

@@ -16,15 +16,15 @@ type
     speed : integer;
     created : boolean;
     procedure init(t, l, s, sp : integer);
-    procedure update();
-    function upravSmer(lastL, lastT: integer) : integer;
+    function update() : boolean;
+    function upravSmer(lastL, lastT: integer) : boolean;
     function odraz(lastL, odkial : integer) : integer;
   end;
 implementation
 
 uses game;
 
-procedure Tball.update();
+function Tball.update() : boolean;
 var lastT, lastL, i : integer;
 begin
   lastT := ball.Top;
@@ -32,33 +32,39 @@ begin
   for i := 1 to speed do begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
-    smer := upravSmer(lastL, lastT);
+    if (not upravSmer(lastL, lastT)) then begin
+      update:= false;
+      exit;
+    end;
     lastT := ball.Top;
     lastL := ball.Left;
   end;
+  update := true;
 end;
 
-function Tball.upravSmer(lastL, lastT: integer) : integer;
+function Tball.upravSmer(lastL, lastT: integer) : boolean;
 var i, j, radius, sx, sy, kam : integer;
   uhol : real;
 begin
+  upravSmer := true;
 // Kraje hracieho pola
   // vrch
   if (ball.Top <= 0)  then begin
-    upravSmer := odraz(lastL, 4);
+    smer := odraz(lastL, 4);
     ball.Top:= 1;
     exit;
   end;
 
   //      lava stena  or                     prava stena
   if (ball.left <= 0) or (ball.left + ball.Width >= Fgame.width) then begin
-    upravSmer := odraz(lastL, 1); exit;
+    smer := odraz(lastL, 1);
+    exit;
   end;
 
   // spodok -> prehra
   if (ball.Top {+ (ball.Height div 2)} >= Fgame.height) then begin
-    Fgame.modLife(-1);
-    Fgame.respawnPad;
+    upravSmer := false;
+    exit();
   end;
 
   // ostatne
@@ -79,7 +85,7 @@ begin
 
         case grid[i][j].typ of
           1 : begin // pad
-            upravSmer := odraz(lastL, 3);
+            smer := odraz(lastL, 3);
             ball.Top:= Fgame.pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
             Fgame.addScore(1);
             exit;
@@ -93,12 +99,11 @@ begin
               kam := 1; // lava / prava
             if (uhol < 46) then
               kam := 4; // horna
-            upravSmer := odraz(lastL, kam);
+            smer := odraz(lastL, kam);
             exit;
           end;
         end;
       end;
-  upravSmer := smer;
 end;
 
 function Tball.odraz(lastL, odkial : integer) : integer;

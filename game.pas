@@ -16,9 +16,11 @@ type
     pad: TImage;
     score: TLabel;
     Timer1: TTimer;
+    procedure FormClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: char);
-    procedure movePad(o: integer);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure movePad(where: integer);
     procedure genj();
     procedure Timer1Timer(Sender: TObject);
     procedure addScore(kolko : integer);
@@ -29,6 +31,7 @@ type
     procedure win();
     procedure lose();
     procedure modLife(kolko : integer);
+    procedure addBrick(x, y : integer; farba : TColor);
     procedure despawnBricks();
     procedure despawnBrick(index : integer);
     procedure init(nejm: string; fillP, l : integer);
@@ -54,7 +57,7 @@ var
   ballCnt: integer;
   pause, finished: boolean;
   pi: real;
-  PADspeed, lives, fillPercent: integer;
+  lives, fillPercent: integer;
   Pname : string;
 
 implementation
@@ -70,7 +73,6 @@ begin
 
   // default
   ballCnt := 0;
-  PADspeed := 40;
   finished := false;
   modLife(0);
   genj();
@@ -100,25 +102,34 @@ begin
 end;
 
 procedure TFgame.genj();
-var i, j : integer;
+var i, j, pol : integer;
+  tmpColor : TColor;
 begin
+  pol := ((width div 20) - (width div (20 * 20)) - 1) div 2;
   despawnBricks();
   rem[0] := 0;
-  for i := 1 to (width div 20) - (width div (20 * 20)) - 1 do
+  for i := 1 to pol - 1 do
     for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
       if (random(100) < fillPercent) then begin
-        things[0][rem[0]] := TImage.Create(self);
-        things[0][rem[0]].Parent := Self;
-        things[0][rem[0]].Left:= i * 20 + i;
-        things[0][rem[0]].top:= j * 10 + j;
-        things[0][rem[0]].Width := 18;
-        things[0][rem[0]].Height := 8;
-        things[0][rem[0]].Canvas.Brush.Color := randomColor(Fgame.Color);
-        things[0][rem[0]].Canvas.FillRect(clientrect);
-        addToGrid(things[0][rem[0]], 0, rem[0]);
-        inc(rem[0]);
+        tmpColor := randomColor(Fgame.Color);
+        addBrick(i * 20 + i, j * 10 + j, tmpColor);
+        addBrick((2 * pol - i) * 20 +  2 * pol - i, j * 10 + j, tmpColor);
       end;
   dec(rem[0]);
+end;
+
+procedure TFgame.addBrick(x, y : integer; farba : TColor);
+begin
+  things[0][rem[0]] := TImage.Create(self);
+  things[0][rem[0]].Parent := Self;
+  things[0][rem[0]].Left:= x;
+  things[0][rem[0]].top:= y;
+  things[0][rem[0]].Width := 18;
+  things[0][rem[0]].Height := 8;
+  things[0][rem[0]].Canvas.Brush.Color := farba;
+  things[0][rem[0]].Canvas.FillRect(clientrect);
+  addToGrid(things[0][rem[0]], 0, rem[0]);
+  inc(rem[0]);
 end;
 
 procedure TFgame.FormCreate(Sender: TObject);
@@ -134,20 +145,29 @@ begin
       things[i][j] := NIL;
 end;
 
+procedure TFgame.FormClick(Sender: TObject);
+begin
+  pause := false;
+end;
+
 procedure TFgame.FormKeyPress(Sender: TObject; var Key: char);
 begin
-  case Key of
-  'a': movePad(-1);
-  'd': movePad(1);
-  'p': pause := not pause;
+  case ord(Key) of
+  ord('p'): pause := not pause;
+  27: lose();
   end;
 end;
 
-procedure TFgame.movePad(o: integer);
+procedure TFgame.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
 begin
-  if (pause) then pause := false; // unpause on pad moving
+  movePad(x);
+end;
+
+procedure TFgame.movePad(where: integer);
+begin
   removeFromGrid(pad);
-  pad.Left:= pad.Left + o * PADspeed;
+  pad.Left:= where;
   // prevent going out of window
   if pad.Left <= 0 then pad.Left:= 1;
   if pad.Left + pad.Width > width then pad.Left:= width - pad.Width;
@@ -157,9 +177,22 @@ end;
 procedure TFgame.Timer1Timer(Sender: TObject);
 var i : integer;
 begin
-  if (pause = false) and (finished = false) then
-    for i := 0 to ballCnt do
-      balls[i].update();
+  if (pause = false) and (finished = false) then begin
+    i := 0;
+    while i <= ballCnt do begin
+      if balls[i].update() then
+        inc(i)
+      else begin
+        if ballcnt = 0 then begin
+          modLife(-1);
+          respawnPad;
+          exit;
+        end;
+        balls[i] := balls[ballCnt];
+        dec(ballCnt);
+      end;
+    end;
+  end;
 end;
 
 procedure TFgame.win();
@@ -176,6 +209,7 @@ begin
   finished := true;
   if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
     FhighScore.showHS();
+  score.Caption:= IntToStr(0);
   Fgame.Hide;
   Fmenu.Show;
 end;
