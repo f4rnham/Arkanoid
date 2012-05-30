@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, windows, highscore, helpers, ballhandler, bonushandler;
+  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler;
 type
 
   { TFgame }
@@ -34,7 +34,7 @@ type
     procedure addBrick(x, y : integer; farba : TColor);
     procedure despawnBricks();
     procedure despawnBrick(index : integer);
-    procedure init(nejm: string; fillP, l : integer);
+    procedure init(nejm: string; fillP, l : integer; checked : boolean);
     procedure spawnBall(x, y : integer);
   private
     { private declarations }
@@ -61,6 +61,7 @@ var
   pi: real;
   lives, fillPercent: integer;
   Pname : string;
+  roll : integer;
 
 implementation
 
@@ -72,13 +73,16 @@ begin
   balls[ballCnt].init(y, x, random(360), 5);
 end;
 
-procedure TFgame.init(nejm : string; fillP, l : integer);
+procedure TFgame.init(nejm : string; fillP, l : integer; checked : boolean);
 begin
   clearGrid();
   Pname := nejm;
   fillPercent := fillP;
   lives := l;
 
+
+  if checked then roll := 2
+  else roll := 100;
   // default
   rem[2] := -1; // 0 bonuses falling
   ballCnt := 0;

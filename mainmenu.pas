@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Buttons, game, errorreporting, input, highscore;
+  ComCtrls, Buttons, game, errorreporting, input, highscore, log;
 
 type
 
   { TFmenu }
 
   TFmenu = class(TForm)
+    bonus: TCheckBox;
     hs: TButton;
     randomB: TCheckBox;
     infiLives: TCheckBox;
@@ -38,6 +39,7 @@ var
   Fmenu: TFmenu;
   nejm : string;
   score : int64;
+  outLog : Tlog;
 implementation
 
 {$R *.lfm}
@@ -67,7 +69,7 @@ end;
 procedure TFmenu.startGame(a, b : integer);
 begin
   Finput.init('Zadajte meno', nejm, nejm);
-  Fgame.init(nejm, a, b);
+  Fgame.init(nejm, a, b, bonus.Checked);
   Hide;
   Fgame.Show;
 end;
@@ -100,6 +102,8 @@ end;
 procedure TFmenu.FormCreate(Sender: TObject);
 begin
   nejm := 'MrSmith';
+  outLog := Tlog.Create;
+  //outLog.init('debug.txt');
 end;
 
 procedure TFmenu.hsClick(Sender: TObject);

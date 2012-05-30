@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, helpers, math;
+  ExtCtrls, helpers, math, log;
 
 type
   Tball = class
@@ -22,7 +22,7 @@ type
   end;
 implementation
 
-uses game;
+uses game, mainmenu;
 
 function Tball.update() : boolean;
 var lastT, lastL, i : integer;
@@ -32,6 +32,8 @@ begin
   for i := 1 to speed do begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
+    outLog.outText(intToStr(ball.Left - lastL));
+    outLog.outText(intToStr(ball.Top - lastT));
     if (not upravSmer(lastL, lastT)) then begin
       update:= false;
       exit;
@@ -84,7 +86,12 @@ begin
 
         case grid[i][j].typ of
           1 : begin // pad
-            smer := odraz(lastL, 3);
+            //smer := odraz(lastL, 3);
+            if i - Fgame.pad.Left < Fgame.pad.Width div 2 then
+              smer := 290 + (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left)
+            else
+              smer := (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left - Fgame.pad.Width div 2);
+
             ball.Top:= Fgame.pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
             Fgame.addScore(1);
             exit;
@@ -94,7 +101,7 @@ begin
             Fgame.addScore(10);
 
             // drop bonus
-            if random(200) = 1 then begin
+            if random(roll) = 1 then begin
               inc(rem[2]);
               bonuses[rem[2]].init(j, i, 1, 2);
             end;

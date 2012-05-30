@@ -34,16 +34,16 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="34">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="project1"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="16" Y="11"/>
-        <UsageCount Value="99"/>
+        <CursorPos X="72" Y="14"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -54,10 +54,10 @@
         <UnitName Value="game"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="232"/>
-        <CursorPos X="61" Y="248"/>
-        <FoldState Value=" T3k80C014D"/>
-        <UsageCount Value="99"/>
+        <TopLine Value="120"/>
+        <CursorPos X="1" Y="207"/>
+        <FoldState Value=" T3jc0F6j"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -119,7 +119,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="15"/>
-        <UsageCount Value="92"/>
+        <UsageCount Value="94"/>
       </Unit9>
       <Unit10>
         <Filename Value="unit1.lfm"/>
@@ -131,10 +131,12 @@
       </Unit10>
       <Unit11>
         <Filename Value="C:\FPC\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3380"/>
-        <CursorPos X="1" Y="3399"/>
+        <TopLine Value="3374"/>
+        <CursorPos X="1" Y="3381"/>
         <UsageCount Value="28"/>
+        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\FPC\lazarus\lcl\include\customimage.inc"/>
@@ -178,19 +180,19 @@
         <ComponentName Value="Fmenu"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="mainmenu"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
-        <CursorPos X="25" Y="23"/>
-        <UsageCount Value="51"/>
+        <TopLine Value="77"/>
+        <CursorPos X="30" Y="106"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="C:\FPC\lazarus\lcl\include\customform.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1854"/>
-        <CursorPos X="1" Y="1873"/>
+        <TopLine Value="858"/>
+        <CursorPos X="1" Y="877"/>
         <UsageCount Value="12"/>
       </Unit18>
       <Unit19>
@@ -207,11 +209,11 @@
         <ComponentName Value="Error"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="errorreporting"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="9" Y="35"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit20>
@@ -221,11 +223,11 @@
         <ComponentName Value="input"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="input"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="76" Y="63"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit21>
@@ -235,11 +237,11 @@
         <ComponentName Value="highScore"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="highscore"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="62"/>
-        <CursorPos X="65" Y="89"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="106"/>
+        <CursorPos X="3" Y="110"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit22>
@@ -247,11 +249,11 @@
         <Filename Value="helpers.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="helpers"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="20" Y="50"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
@@ -259,12 +261,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ballhandler"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="87"/>
-        <CursorPos X="26" Y="97"/>
-        <FoldState Value=" T3Q0GF"/>
-        <UsageCount Value="35"/>
+        <TopLine Value="77"/>
+        <CursorPos X="25" Y="93"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit24>
       <Unit25>
@@ -292,11 +293,11 @@
       <Unit28>
         <Filename Value="C:\FPC\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="588"/>
         <CursorPos X="18" Y="607"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit28>
       <Unit29>
@@ -318,11 +319,11 @@
         <Filename Value="bonushandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bonushandler"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="44" Y="64"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -333,124 +334,139 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit32>
+      <Unit33>
+        <Filename Value="log.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="log"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3"/>
+        <CursorPos X="1" Y="37"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit33>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="game.pas"/>
-        <Caret Line="34" Column="45" TopLine="15"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="24" Column="9" TopLine="2"/>
       </Position1>
       <Position2>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="6" Column="1" TopLine="1"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="35" Column="1" TopLine="2"/>
       </Position2>
       <Position3>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="9" Column="28" TopLine="1"/>
+        <Filename Value="game.pas"/>
+        <Caret Line="164" Column="27" TopLine="124"/>
       </Position3>
       <Position4>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="39" Column="13" TopLine="3"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="36" Column="28" TopLine="16"/>
       </Position4>
       <Position5>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="34" Column="48" TopLine="5"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="29" Column="14" TopLine="1"/>
       </Position5>
       <Position6>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="44" Column="31" TopLine="9"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="27" Column="32" TopLine="3"/>
       </Position6>
       <Position7>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="42" Column="9" TopLine="10"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="37" Column="1" TopLine="3"/>
       </Position7>
       <Position8>
-        <Filename Value="game.pas"/>
-        <Caret Line="109" Column="10" TopLine="75"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="17" Column="75" TopLine="3"/>
       </Position8>
       <Position9>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="52" Column="18" TopLine="18"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="29" Column="1" TopLine="3"/>
       </Position9>
       <Position10>
-        <Filename Value="game.pas"/>
-        <Caret Line="56" Column="38" TopLine="40"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="30" Column="1" TopLine="3"/>
       </Position10>
       <Position11>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="99" Column="46" TopLine="71"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="28" Column="26" TopLine="2"/>
       </Position11>
       <Position12>
-        <Filename Value="game.pas"/>
-        <Caret Line="149" Column="20" TopLine="117"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="31" Column="13" TopLine="2"/>
       </Position12>
       <Position13>
-        <Filename Value="game.pas"/>
-        <Caret Line="148" Column="18" TopLine="117"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="30" Column="24" TopLine="2"/>
       </Position13>
       <Position14>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="139" Column="15" TopLine="95"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="29" Column="13" TopLine="2"/>
       </Position14>
       <Position15>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="26" Column="16" TopLine="7"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="32" Column="10" TopLine="2"/>
       </Position15>
       <Position16>
-        <Filename Value="game.pas"/>
-        <Caret Line="223" Column="5" TopLine="179"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="29" Column="1" TopLine="2"/>
       </Position16>
       <Position17>
-        <Filename Value="game.pas"/>
-        <Caret Line="212" Column="12" TopLine="194"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="32" Column="23" TopLine="2"/>
       </Position17>
       <Position18>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="100" Column="27" TopLine="71"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="37" Column="1" TopLine="4"/>
       </Position18>
       <Position19>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="59" Column="42" TopLine="25"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="99" Column="24" TopLine="76"/>
       </Position19>
       <Position20>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="45" Column="1" TopLine="25"/>
+        <Filename Value="log.pas"/>
+        <Caret Line="37" Column="1" TopLine="3"/>
       </Position20>
       <Position21>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="98" Column="24" TopLine="71"/>
+        <Filename Value="C:\FPC\lazarus\lcl\include\control.inc"/>
+        <Caret Line="3381" Column="1" TopLine="3374"/>
       </Position21>
       <Position22>
-        <Filename Value="game.pas"/>
-        <Caret Line="221" Column="15" TopLine="194"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="33" Column="1" TopLine="14"/>
       </Position22>
       <Position23>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="45" Column="1" TopLine="25"/>
+        <Filename Value="mainmenu.pas"/>
+        <Caret Line="104" Column="24" TopLine="74"/>
       </Position23>
       <Position24>
         <Filename Value="game.pas"/>
-        <Caret Line="220" Column="13" TopLine="188"/>
+        <Caret Line="37" Column="53" TopLine="18"/>
       </Position24>
       <Position25>
-        <Filename Value="game.pas"/>
-        <Caret Line="219" Column="38" TopLine="188"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="94" Column="1" TopLine="65"/>
       </Position25>
       <Position26>
-        <Filename Value="game.pas"/>
-        <Caret Line="72" Column="43" TopLine="56"/>
+        <Filename Value="C:\FPC\lazarus\lcl\include\control.inc"/>
+        <Caret Line="3381" Column="1" TopLine="3374"/>
       </Position26>
       <Position27>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="64" Column="39" TopLine="31"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="33" Column="1" TopLine="14"/>
       </Position27>
       <Position28>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="109" Column="26" TopLine="79"/>
+        <Filename Value="C:\FPC\lazarus\lcl\include\control.inc"/>
+        <Caret Line="3381" Column="1" TopLine="3374"/>
       </Position28>
       <Position29>
         <Filename Value="ballhandler.pas"/>
-        <Caret Line="103" Column="66" TopLine="84"/>
+        <Caret Line="33" Column="8" TopLine="14"/>
       </Position29>
+      <Position30>
+        <Filename Value="game.pas"/>
+        <Caret Line="207" Column="1" TopLine="120"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

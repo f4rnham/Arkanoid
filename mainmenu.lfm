@@ -86,4 +86,12 @@ object Fmenu: TFmenu
     OnClick = hsClick
     TabOrder = 7
   end
+  object bonus: TCheckBox
+    Left = 69
+    Height = 19
+    Top = 224
+    Width = 53
+    Caption = 'bonus'
+    TabOrder = 8
+  end
 end
