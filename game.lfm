@@ -10,6 +10,7 @@ object Fgame: TFgame
   ClientWidth = 646
   Color = clWhite
   OnClick = FormClick
+  OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnMouseMove = FormMouseMove

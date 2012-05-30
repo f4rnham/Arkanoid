@@ -17,6 +17,7 @@ type
     score: TLabel;
     Timer1: TTimer;
     procedure FormClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -61,7 +62,7 @@ var
   pi: real;
   lives, fillPercent: integer;
   Pname : string;
-  roll : integer;
+  roll, delayedCleanup : integer;
 
 implementation
 
@@ -173,6 +174,12 @@ begin
   pause := false;
 end;
 
+procedure TFgame.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  delayedCleanup := 1;
+  Fmenu.Show;
+end;
+
 procedure TFgame.FormKeyPress(Sender: TObject; var Key: char);
 begin
   case ord(Key) of
@@ -207,11 +214,15 @@ begin
       if balls[i].update() then
         inc(i)
       else begin
+        if finished = true then
+          exit;
+
         if ballcnt = 0 then begin
           modLife(-1);
           respawnPad;
           exit;
         end;
+
         balls[i].ball.Destroy;
         balls[i].created:= false;
         if ballCnt <> 0 then begin
@@ -240,12 +251,18 @@ begin
         inc(i);
     end;
   end;
+
+  if (delayedCleanup > 0) and (delayedCleanup - Timer1.Interval <= 0) then begin
+    delayedCleanup := -1;
+    respawnPad();
+  end
+  else
+    dec(delayedCleanup, Timer1.Interval);
 end;
 
 procedure TFgame.win();
 begin
   finished := true;
-  respawnPad(); // cleanup
   if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
     FhighScore.showHS();
   Fgame.Hide;
@@ -255,7 +272,6 @@ end;
 procedure TFgame.lose();
 begin
   finished := true;
-  respawnPad(); // cleanup
   if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
     FhighScore.showHS();
   score.Caption:= IntToStr(0);
