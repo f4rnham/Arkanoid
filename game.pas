@@ -64,7 +64,7 @@ var
   pi: real;
   lives, fillPercent: integer;
   Pname : string;
-  roll, delayedCleanup : integer;
+  roll, delayedCleanup, catched : integer;
 
 implementation
 
@@ -89,8 +89,8 @@ begin
   // default
   rem[2] := -1; // 0 bonuses falling
   ballCnt := 0;
-  finished := false;
   modLife(0);
+  finished := false;
   genj();
   respawnPad();
 end;
@@ -106,15 +106,18 @@ begin
       balls[i].ball.Destroy();
       balls[i].created:= false;
     end;
-  ballCnt := 0;
-  balls[0].init(372, 232, normalize360(290 + random(140)), 5);
-  Fgame.SetChildZPosition(balls[0].ball, 0);
 
   // pad
   removeFromGrid(pad);
-  pad.Left:= 232;
-  pad.Top:= 456;
+  pad.Left:= Fgame.Width div 2 - pad.Width div 2;
+  pad.Top:= Fgame.Height - pad.Height - 10;
   addToGrid(pad, 1, 0);
+
+  ballCnt := 0;
+  balls[0].init(pad.Top - 15, pad.Left + pad.Width div 2, normalize360(290 + random(140)), 5);
+  Fgame.SetChildZPosition(balls[0].ball, 0);
+  catched := 0;
+  pause := false;
 
   // destroy bonuses
   for i := 0 to rem[2] do
@@ -173,7 +176,7 @@ end;
 
 procedure TFgame.FormClick(Sender: TObject);
 begin
-  pause := false;
+  catched := -1;
 end;
 
 procedure TFgame.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -193,7 +196,8 @@ end;
 procedure TFgame.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
-  movePad(x);
+  if not pause then
+    movePad(x);
 end;
 
 procedure TFgame.movePad(where: integer);
@@ -204,6 +208,10 @@ begin
   if pad.Left <= 0 then pad.Left:= 1;
   if pad.Left + pad.Width > width then pad.Left:= width - pad.Width;
   addToGrid(pad, 1, 0);
+
+  if catched <> -1 then begin
+    balls[catched].ball.Left:= pad.Left + pad.Width div 2;
+  end;
 end;
 
 procedure TFgame.updateBalls();
@@ -211,6 +219,11 @@ var i : integer;
 begin
   i := 0;
   while i <= ballCnt do begin
+    if i = catched then begin
+      inc(i);
+      continue;
+    end;
+
     if balls[i].update() then
       inc(i)
     else begin
@@ -245,8 +258,6 @@ begin
       if rem[2] <> 0 then begin
         bonuses[i] := bonuses[rem[2]];
         bonuses[rem[2]] := Tbonus.Create;
-        //bonuses[rem[2]].created:= false;
-        //bonuses[rem[2]].bonus.Destroy;
         end;
       dec(rem[2]);
     end
@@ -262,23 +273,18 @@ begin
   if (pause = false) and (finished = false) then begin
     // update balls
     getTime(h, m, s, ms);
-    //updateBalls();
-    ballUpdater := TMyThread.Create(True);
-    ballUpdater.balls := true;
-    ballUpdater.Resume;
-    bonusUpdater := TMyThread.Create(True);
-    bonusUpdater.balls := false;
-    bonusUpdater.Resume;
-    while (not bonusUpdater.Terminated) and (not ballUpdater.Terminated) do sleep(1);
+    updateBalls();
     getTime(Oh, Om, Os, Oms);
     outLog.outText('ball ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
+    Fgame.Caption:= intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms));
     outLog.outInt(ballCnt);
+
     // update bonuses
-    //getTime(h, m, s, ms);
-    //updateBonus();
-    //getTime(Oh, Om, Os, Oms);
-    //outLog.outText('bonus ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
-    //outLog.outInt(rem[2]);
+    getTime(h, m, s, ms);
+    updateBonus();
+    getTime(Oh, Om, Os, Oms);
+    outLog.outText('bonus ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
+    outLog.outInt(rem[2]);
   end;
 
   if (delayedCleanup > 0) and (delayedCleanup - Timer1.Interval <= 0) then begin
