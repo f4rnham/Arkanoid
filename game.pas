@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler;
+  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos, MyThreads;
 type
 
   { TFgame }
@@ -37,6 +37,8 @@ type
     procedure despawnBrick(index : integer);
     procedure init(nejm: string; fillP, l : integer; checked : boolean);
     procedure spawnBall(x, y : integer);
+    procedure updateBonus();
+    procedure updateBalls();
   private
     { private declarations }
   public
@@ -55,8 +57,8 @@ var
   rem : array[0..5] of integer;
   // 0 bricks
   // 1 pad placeholder, nothing is added
-  bonuses : array[0..2000] of Tbonus;
-  balls : array[0..500] of Tball;
+  bonuses : array[0..50000] of Tbonus;
+  balls : array[0..50000] of Tball;
   ballCnt: integer;
   pause, finished: boolean;
   pi: real;
@@ -160,7 +162,7 @@ begin
   Fgame.DoubleBuffered:= true;
   pause := true;
   pi := 3.1415926535897932384626433832795;
-  for i := 0 to 500 do begin
+  for i := 0 to 50000 do begin
     balls[i] := Tball.Create;
     bonuses[i] := Tbonus.Create;
   end;
@@ -204,52 +206,79 @@ begin
   addToGrid(pad, 1, 0);
 end;
 
-procedure TFgame.Timer1Timer(Sender: TObject);
+procedure TFgame.updateBalls();
 var i : integer;
+begin
+  i := 0;
+  while i <= ballCnt do begin
+    if balls[i].update() then
+      inc(i)
+    else begin
+      if finished = true then
+        exit;
+
+      if ballcnt = 0 then begin
+        modLife(-1);
+        respawnPad;
+        exit;
+      end;
+
+      balls[i].ball.Destroy;
+      balls[i].created:= false;
+      if ballCnt <> 0 then begin
+        balls[i] := balls[ballCnt];
+        balls[ballCnt] := Tball.Create;
+      end;
+      dec(ballCnt);
+    end;
+  end;
+end;
+
+procedure TFgame.updateBonus();
+var i : integer;
+begin
+  i := 0;
+  while i <= rem[2] do begin
+    if not bonuses[i].update() then begin
+      bonuses[i].bonus.Destroy;
+      bonuses[i].created:= false;
+      if rem[2] <> 0 then begin
+        bonuses[i] := bonuses[rem[2]];
+        bonuses[rem[2]] := Tbonus.Create;
+        //bonuses[rem[2]].created:= false;
+        //bonuses[rem[2]].bonus.Destroy;
+        end;
+      dec(rem[2]);
+    end
+    else
+      inc(i);
+  end;
+end;
+
+procedure TFgame.Timer1Timer(Sender: TObject);
+var h, m, s, ms, Oh, Om, Os, Oms : word;
+  ballUpdater, bonusUpdater : TMyThread;
 begin
   if (pause = false) and (finished = false) then begin
     // update balls
-    i := 0;
-    while i <= ballCnt do begin
-      if balls[i].update() then
-        inc(i)
-      else begin
-        if finished = true then
-          exit;
-
-        if ballcnt = 0 then begin
-          modLife(-1);
-          respawnPad;
-          exit;
-        end;
-
-        balls[i].ball.Destroy;
-        balls[i].created:= false;
-        if ballCnt <> 0 then begin
-          balls[i] := balls[ballCnt];
-          balls[ballCnt] := Tball.Create;
-        end;
-        dec(ballCnt);
-      end;
-    end;
-
+    getTime(h, m, s, ms);
+    //updateBalls();
+    ballUpdater := TMyThread.Create(True);
+    ballUpdater.balls := true;
+    ballUpdater.Resume;
+    bonusUpdater := TMyThread.Create(True);
+    bonusUpdater.balls := false;
+    bonusUpdater.Resume;
+    while (not bonusUpdater.Terminated) and (not ballUpdater.Terminated) do sleep(1);
+    getTime(Oh, Om, Os, Oms);
+    outLog.outText('ball ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
+    outLog.outInt(ballCnt);
     // update bonuses
-    i := 0;
-    while i <= rem[2] do begin
-      if not bonuses[i].update() then begin
-        bonuses[i].bonus.Destroy;
-        bonuses[i].created:= false;
-        if rem[2] <> 0 then begin
-          bonuses[i] := bonuses[rem[2]];
-          bonuses[rem[2]] := Tbonus.Create;
-          //bonuses[rem[2]].created:= false;
-          //bonuses[rem[2]].bonus.Destroy;
-          end;
-        dec(rem[2]);
-      end
-      else
-        inc(i);
-    end;
+    //getTime(h, m, s, ms);
+    //updateBonus();
+    //getTime(Oh, Om, Os, Oms);
+    //outLog.outText('bonus ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
+    //outLog.outInt(rem[2]);
   end;
 
   if (delayedCleanup > 0) and (delayedCleanup - Timer1.Interval <= 0) then begin

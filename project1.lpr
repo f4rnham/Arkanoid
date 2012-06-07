@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, game, mainmenu, errorreporting, input, highscore, helpers, ballhandler,
-  bonushandler, log;
+  bonushandler, log, MyThreads;
 
 {$R *.res}
 

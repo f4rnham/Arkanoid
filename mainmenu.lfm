@@ -1,11 +1,11 @@
 object Fmenu: TFmenu
-  Left = 372
-  Height = 392
-  Top = 109
-  Width = 426
+  Left = 966
+  Height = 430
+  Top = 91
+  Width = 442
   Caption = 'Hlavne menu'
-  ClientHeight = 392
-  ClientWidth = 426
+  ClientHeight = 430
+  ClientWidth = 442
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '0.9.30'
@@ -53,7 +53,7 @@ object Fmenu: TFmenu
   end
   object lives: TEdit
     Left = 14
-    Height = 23
+    Height = 21
     Top = 116
     Width = 60
     TabOrder = 4
@@ -61,18 +61,18 @@ object Fmenu: TFmenu
   end
   object infiLives: TCheckBox
     Left = 88
-    Height = 19
+    Height = 17
     Top = 118
-    Width = 84
+    Width = 75
     Caption = 'nekonecno?'
     OnChange = infiLivesChange
     TabOrder = 5
   end
   object randomB: TCheckBox
     Left = 282
-    Height = 19
+    Height = 17
     Top = 62
-    Width = 74
+    Width = 66
     Caption = 'Nahodne?'
     OnChange = randomBChange
     TabOrder = 6
@@ -88,9 +88,9 @@ object Fmenu: TFmenu
   end
   object bonus: TCheckBox
     Left = 69
-    Height = 19
+    Height = 17
     Top = 224
-    Width = 53
+    Width = 47
     Caption = 'bonus'
     TabOrder = 8
   end

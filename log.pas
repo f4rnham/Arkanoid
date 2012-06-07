@@ -14,6 +14,7 @@ type
     enabled : boolean;
     outFile : string;
     procedure outText(s : string);
+    procedure outInt(i : integer);
     procedure init(s : string);
   end;
 
@@ -26,6 +27,14 @@ begin
   if not enabled then exit;
 
   writeln(f, s);
+  flush(f);
+end;
+
+procedure Tlog.outInt(i : integer);
+begin
+  if not enabled then exit;
+
+  writeln(f, IntToStr(i));
   flush(f);
 end;
 

@@ -32,8 +32,8 @@ begin
   for i := 1 to speed do begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
-    outLog.outText(intToStr(ball.Left - lastL));
-    outLog.outText(intToStr(ball.Top - lastT));
+    //outLog.outText(intToStr(ball.Left - lastL));
+    //outLog.outText(intToStr(ball.Top - lastT));
     if (not upravSmer(lastL, lastT)) then begin
       update:= false;
       exit;
