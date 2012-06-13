@@ -85,7 +85,7 @@ begin
 
 
   if checked then roll := 2
-  else roll := 100;
+  else roll := 10;
   // default
   rem[2] := -1; // 0 bonuses falling
   ballCnt := 0;
@@ -114,7 +114,8 @@ begin
   addToGrid(pad, 1, 0);
 
   ballCnt := 0;
-  balls[0].init(pad.Top - 15, pad.Left + pad.Width div 2, normalize360(290 + random(140)), 5);
+  balls[0].init(pad.Top, pad.Left + pad.Width div 2, normalize360(290 + random(140)), 5);
+  balls[0].ball.Top:= pad.Top - balls[0].ball.Height - 5;
   Fgame.SetChildZPosition(balls[0].ball, 0);
   catched := 0;
   pause := false;

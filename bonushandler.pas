@@ -49,6 +49,12 @@ begin
       bonus.Canvas.Ellipse(0, 0, bonus.Width, bonus.Height);
     end;
     4 : begin
+      bonus.Canvas.Ellipse(0, 0, bonus.Width div 2, bonus.Height div 2);
+      bonus.Canvas.Ellipse(bonus.Width div 2, bonus.Height div 2, bonus.Width, bonus.Height);
+      bonus.Canvas.Ellipse(0, bonus.Height div 3, 2 * (bonus.Width div 3), bonus.Height);
+
+    end;
+    5 : begin
       bonus.Canvas.MoveTo(bonus.Width div 2, 0);
       bonus.Canvas.LineTo(bonus.Width div 2 + bonus.Width div 3, bonus.Height);
       bonus.Canvas.LineTo(0, bonus.Height div 3);

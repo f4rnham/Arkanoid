@@ -86,13 +86,16 @@ begin
 
         case grid[i][j].typ of
           1 : begin // pad
-            //smer := odraz(lastL, 3);
+            if ball.Top + ball.Height < Fgame.pad.Top - 2 then begin // odraz od steny padu
+              smer := odraz(lastL, 1);
+              exit;
+            end;
+
             if i - Fgame.pad.Left < Fgame.pad.Width div 2 then
               smer := 290 + (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left)
             else
               smer := (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left - Fgame.pad.Width div 2);
 
-            ball.Top:= Fgame.pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
             Fgame.addScore(1);
             exit;
           end;
