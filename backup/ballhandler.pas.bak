@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, helpers;
+  ExtCtrls, helpers, math, log;
 
 type
   Tball = class
@@ -16,15 +16,15 @@ type
     speed : integer;
     created : boolean;
     procedure init(t, l, s, sp : integer);
-    procedure update();
-    function upravSmer(lastL, lastT: integer) : integer;
-    function odraz(lastL, lastT, odkial : integer) : integer;
+    function update() : boolean;
+    function upravSmer(lastL, lastT: integer) : boolean;
+    function odraz(lastL, odkial : integer) : integer;
   end;
 implementation
 
-uses game;
+uses game, mainmenu;
 
-procedure Tball.update();
+function Tball.update() : boolean;
 var lastT, lastL, i : integer;
 begin
   lastT := ball.Top;
@@ -32,35 +32,41 @@ begin
   for i := 1 to speed do begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
-    smer := upravSmer(lastL, lastT);
+    //outLog.outText(intToStr(ball.Left - lastL));
+    //outLog.outText(intToStr(ball.Top - lastT));
+    if (not upravSmer(lastL, lastT)) then begin
+      update:= false;
+      exit;
+    end;
+    lastT := ball.Top;
+    lastL := ball.Left;
   end;
+  update := true;
 end;
 
-function Tball.upravSmer(lastL, lastT: integer) : integer;
-var i, j, radius, sx, sy : integer;
+function Tball.upravSmer(lastL, lastT: integer) : boolean;
+var i, j, radius, sx, sy, kam : integer;
+  waaa : integer;
 begin
+  upravSmer := true;
 // Kraje hracieho pola
   // vrch
   if (ball.Top <= 0)  then begin
-    upravSmer := odraz(lastL, lastT, 4);
+    smer := odraz(lastL, 4);
     ball.Top:= 1;
     exit;
   end;
 
-  // lava stena
-  if (ball.left <= 0) then begin
-    upravSmer := odraz(lastL, lastT, 1); exit;
-  end;
-
-  // prava stena
-  if (ball.left + ball.Width >= Fgame.width) then begin
-    upravSmer := odraz(lastL, lastT, 2); exit;
+  //      lava stena  or                     prava stena
+  if (ball.left <= 0) or (ball.left + ball.Width >= Fgame.width) then begin
+    smer := odraz(lastL, 1);
+    exit;
   end;
 
   // spodok -> prehra
   if (ball.Top {+ (ball.Height div 2)} >= Fgame.height) then begin
-    Fgame.modLife(-1);
-    Fgame.respawnPad;
+    upravSmer := false;
+    exit();
   end;
 
   // ostatne
@@ -81,7 +87,12 @@ begin
 
         case grid[i][j].typ of
           1 : begin // pad
-            upravSmer := odraz(lastL, lastT, 3);
+            //smer := odraz(lastL, 3);
+            if i - Fgame.pad.Left < Fgame.pad.Width div 2 then
+              smer := 290 + (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left)
+            else
+              smer := (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left - Fgame.pad.Width div 2);
+
             ball.Top:= Fgame.pad.Top - ball.Height - 1; // HACK proti odrazaniu lopty od krajov padu
             Fgame.addScore(1);
             exit;
@@ -89,16 +100,31 @@ begin
           0 : begin // tehla
             Fgame.despawnBrick(grid[i][j].id);
             Fgame.addScore(10);
-            // vypocitaj odraz
-            //upravSmer := odraz(lastL, lastT, random(3) + 1);
-            //exit;
+
+            // drop bonus
+            for waaa := 0 to 50 do
+            if random(roll) = 1 then begin
+              inc(rem[2]);
+              bonuses[rem[2]].init(j, i, 1, 2);
+            end;
+
+            // up and down -> side
+            if (grid[i][j + 1].typ <> -1) and (grid[i][j - 1].typ <> -1) then
+               kam := 1
+            else
+              if grid[i][j + 1].typ <> -1 then // horna stena
+                kam := 4
+              else // spodna
+                kam := 3;
+
+            smer := odraz(lastL, kam);
+            exit;
           end;
         end;
       end;
-  upravSmer := smer;
 end;
 
-function Tball.odraz(lastL, lastT, odkial : integer) : integer;
+function Tball.odraz(lastL, odkial : integer) : integer;
 begin
   case odkial of
     1, 2 : begin // lava, prava
@@ -125,11 +151,11 @@ begin
   ball := TImage.Create(Fgame);
   created := true;
   ball.Parent := Fgame;
-  ball.Width := 100;
-  ball.Height := 100;
+  ball.Width := 10;
+  ball.Height := 10;
   ball.Canvas.Brush.Color:= Fgame.Color;
   ball.Canvas.FillRect(ball.ClientRect);
-  ball.Canvas.Brush.Color := rgbtocolor(random(255),random(255),random(255));
+  ball.Canvas.Brush.Color := randomColor(Fgame.Color);
   ball.Canvas.Ellipse(0, 0, ball.Width, ball.Height);
   ball.Visible:= true;
   ball.Left:= l;

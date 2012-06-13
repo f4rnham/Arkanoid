@@ -103,7 +103,7 @@ procedure TFmenu.FormCreate(Sender: TObject);
 begin
   nejm := 'MrSmith';
   outLog := Tlog.Create;
-  outLog.init('debug.txt');
+  //outLog.init('debug.txt');
 end;
 
 procedure TFmenu.hsClick(Sender: TObject);

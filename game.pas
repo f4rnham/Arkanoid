@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos, MyThreads;
+  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos;
 type
 
   { TFgame }
@@ -268,7 +268,6 @@ end;
 
 procedure TFgame.Timer1Timer(Sender: TObject);
 var h, m, s, ms, Oh, Om, Os, Oms : word;
-  ballUpdater, bonusUpdater : TMyThread;
 begin
   if (pause = false) and (finished = false) then begin
     // update balls

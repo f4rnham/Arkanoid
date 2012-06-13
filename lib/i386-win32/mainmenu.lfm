@@ -1,12 +1,13 @@
 object Fmenu: TFmenu
-  Left = 372
-  Height = 392
-  Top = 109
-  Width = 426
+  Left = 966
+  Height = 430
+  Top = 91
+  Width = 442
   Caption = 'Hlavne menu'
-  ClientHeight = 392
-  ClientWidth = 426
+  ClientHeight = 430
+  ClientWidth = 442
   OnCreate = FormCreate
+  Position = poDesktopCenter
   LCLVersion = '0.9.30'
   object startCustom: TButton
     Left = 269
@@ -75,5 +76,22 @@ object Fmenu: TFmenu
     Caption = 'Nahodne?'
     OnChange = randomBChange
     TabOrder = 6
+  end
+  object hs: TButton
+    Left = 266
+    Height = 54
+    Top = 243
+    Width = 140
+    Caption = 'Zobraz naj skore'
+    OnClick = hsClick
+    TabOrder = 7
+  end
+  object bonus: TCheckBox
+    Left = 69
+    Height = 19
+    Top = 224
+    Width = 53
+    Caption = 'bonus'
+    TabOrder = 8
   end
 end

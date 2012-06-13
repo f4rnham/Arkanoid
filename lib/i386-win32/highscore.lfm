@@ -1,14 +1,14 @@
 object highScore: ThighScore
-  Left = 275
-  Height = 413
-  Top = 228
-  Width = 471
+  Left = 317
+  Height = 451
+  Top = 204
+  Width = 487
   Caption = 'highScore'
-  ClientHeight = 413
-  ClientWidth = 471
+  ClientHeight = 451
+  ClientWidth = 487
   LCLVersion = '0.9.30'
   object cont: TButton
-    Left = 195
+    Left = 199
     Height = 30
     Top = 372
     Width = 86

@@ -1,14 +1,20 @@
 object Fgame: TFgame
-  Left = 150
+  Cursor = crNone
+  Left = 384
   Height = 500
-  Top = 411
+  Top = 295
   Width = 646
+  BorderStyle = bsSingle
   Caption = 'mY gAmE'
   ClientHeight = 500
   ClientWidth = 646
   Color = clWhite
+  OnClick = FormClick
+  OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  OnMouseMove = FormMouseMove
+  Position = poScreenCenter
   LCLVersion = '0.9.30'
   object pad: TImage
     Left = 232

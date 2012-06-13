@@ -1,19 +1,33 @@
 object highScore: ThighScore
-  Left = 336
-  Height = 240
-  Top = 143
-  Width = 320
+  Left = 317
+  Height = 451
+  Top = 204
+  Width = 487
   Caption = 'highScore'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 451
+  ClientWidth = 487
   LCLVersion = '0.9.30'
   object cont: TButton
-    Left = 105
+    Left = 199
     Height = 30
-    Top = 201
+    Top = 372
     Width = 86
     Caption = 'Zavri'
     OnClick = contClick
     TabOrder = 0
+  end
+  object table: TImage
+    Left = 75
+    Height = 331
+    Top = 26
+    Width = 335
+  end
+  object status: TStaticText
+    Left = 26
+    Height = 38
+    Top = 363
+    Width = 103
+    Caption = 'status'
+    TabOrder = 1
   end
 end
