@@ -149,8 +149,8 @@ begin
   ball := TImage.Create(Fgame);
   created := true;
   ball.Parent := Fgame;
-  ball.Width := 10;
-  ball.Height := 10;
+  ball.Width := 10 + random(10);
+  ball.Height := ball.Width;
   ball.Canvas.Brush.Color:= Fgame.Color;
   ball.Canvas.FillRect(ball.ClientRect);
   ball.Canvas.Brush.Color := randomColor(Fgame.Color);

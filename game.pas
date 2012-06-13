@@ -252,7 +252,9 @@ var i : integer;
 begin
   i := 0;
   while i <= rem[2] do begin
-    if not bonuses[i].update() then begin
+    if bonuses[i].update() then
+      inc(i)
+    else begin
       bonuses[i].bonus.Destroy;
       bonuses[i].created:= false;
       if rem[2] <> 0 then begin
@@ -260,9 +262,8 @@ begin
         bonuses[rem[2]] := Tbonus.Create;
         end;
       dec(rem[2]);
-    end
-    else
-      inc(i);
+    end;
+
   end;
 end;
 
