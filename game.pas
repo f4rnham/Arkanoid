@@ -61,10 +61,8 @@ type
 var
   Fgame: TFgame;
   grid: array[0..2000,0..2000] of gridPoint;
-  things: array[0..5,0..5000] of TImage;
-  rem : array[0..5] of integer;
-  // 0 bricks
-  // 1 pad placeholder, nothing is added
+  bricks: array[0..5000] of TImage;
+  remBricks, remBonuses : integer;
   bonuses : array[0..50000] of Tbonus;
   balls : array[0..50000] of Tball;
   ballCnt: integer;
@@ -113,7 +111,7 @@ begin
   if checked then roll := 2
   else roll := 10;
   // default
-  rem[2] := -1; // 0 bonuses falling
+  remBonuses := -1; // 0 bonuses falling
   ballCnt := 0;
   modLife(0);
   finished := false;
@@ -148,12 +146,12 @@ begin
   pause := false;
 
   // destroy bonuses
-  for i := 0 to rem[2] do
+  for i := 0 to remBonuses do
     if bonuses[i].created then begin
       bonuses[i].bonus.Destroy();
       bonuses[i].created:= false;
     end;
-  rem[2] := -1;
+  remBonuses := -1;
 end;
 
 procedure TFgame.genj();
@@ -162,7 +160,7 @@ var i, j, pol : integer;
 begin
   pol := ((width div 20) - (width div (20 * 20)) - 1) div 2;
   despawnBricks();
-  rem[0] := 0;
+  remBricks := 0;
   for i := 1 to pol - 1 do
     for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
       if (random(100) < fillPercent) then begin
@@ -170,25 +168,25 @@ begin
         addBrick(i * 20 + i, j * 10 + j, tmpColor);
         addBrick((2 * pol - i) * 20 +  2 * pol - i, j * 10 + j, tmpColor);
       end;
-  dec(rem[0]);
+  dec(remBricks);
 end;
 
 procedure TFgame.addBrick(x, y : integer; farba : TColor);
 begin
-  things[0][rem[0]] := TImage.Create(self);
-  things[0][rem[0]].Parent := Self;
-  things[0][rem[0]].Left:= x;
-  things[0][rem[0]].top:= y;
-  things[0][rem[0]].Width := 18;
-  things[0][rem[0]].Height := 8;
-  things[0][rem[0]].Canvas.Brush.Color := farba;
-  things[0][rem[0]].Canvas.FillRect(clientrect);
-  addToGrid(things[0][rem[0]], 0, rem[0]);
-  inc(rem[0]);
+  bricks[remBricks] := TImage.Create(self);
+  bricks[remBricks].Parent := Self;
+  bricks[remBricks].Left:= x;
+  bricks[remBricks].top:= y;
+  bricks[remBricks].Width := 18;
+  bricks[remBricks].Height := 8;
+  bricks[remBricks].Canvas.Brush.Color := farba;
+  bricks[remBricks].Canvas.FillRect(clientrect);
+  addToGrid(bricks[remBricks], 0, remBricks);
+  inc(remBricks);
 end;
 
 procedure TFgame.FormCreate(Sender: TObject);
-var i, j : integer;
+var i : integer;
 begin
   Fgame.DoubleBuffered:= true;
   pause := true;
@@ -196,10 +194,8 @@ begin
   for i := 0 to 50000 do begin
     balls[i] := Tball.Create;
     bonuses[i] := Tbonus.Create;
+    bricks[i] := NIL;
   end;
-  for i := 0 to 5 do
-    for j := 0 to 5000 do
-      things[i][j] := NIL;
 end;
 
 procedure TFgame.FormClick(Sender: TObject);
@@ -279,17 +275,17 @@ procedure TFgame.updateBonus();
 var i : integer;
 begin
   i := 0;
-  while i <= rem[2] do begin
+  while i <= remBonuses do begin
     if bonuses[i].update() then
       inc(i)
     else begin
       bonuses[i].bonus.Destroy;
       bonuses[i].created:= false;
-      if rem[2] <> 0 then begin
-        bonuses[i] := bonuses[rem[2]];
-        bonuses[rem[2]] := Tbonus.Create;
+      if remBonuses <> 0 then begin
+        bonuses[i] := bonuses[remBonuses];
+        bonuses[remBonuses] := Tbonus.Create;
         end;
-      dec(rem[2]);
+      dec(remBonuses);
     end;
 
   end;
@@ -312,7 +308,7 @@ begin
     updateBonus();
     getTime(Oh, Om, Os, Oms);
     outLog.outText('bonus ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
-    outLog.outInt(rem[2]);
+    outLog.outInt(remBonuses);
   end;
 
   if (delayedCleanup > 0) and (delayedCleanup - Timer1.Interval <= 0) then begin
@@ -344,12 +340,12 @@ end;
 
 procedure TFgame.despawnBrick(index : integer);
 begin
-  if things[0][index] <> NIL then begin
-    removeFromGrid(things[0][index]);
-    things[0][index].Destroy;
-    things[0][index] := NIL;
-    dec(rem[0]);
-    if rem[0] = -1 then win();
+  if bricks[index] <> NIL then begin
+    removeFromGrid(bricks[index]);
+    bricks[index].Destroy;
+    bricks[index] := NIL;
+    dec(remBricks);
+    if remBricks = -1 then win();
   end;
 end;
 
@@ -357,10 +353,10 @@ procedure TFgame.despawnBricks();
 var i : integer;
 begin
   for i := 0 to 5000 do
-    if things[0][i] <> NIL then begin
-      removeFromGrid(things[0][i]);
-      things[0][i].Destroy;
-      things[0][i] := NIL;
+    if bricks[i] <> NIL then begin
+      removeFromGrid(bricks[i]);
+      bricks[i].Destroy;
+      bricks[i] := NIL;
     end;
 end;
 

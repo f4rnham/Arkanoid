@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, helpers, math, log;
+  ExtCtrls, helpers, math;
 
 type
   Tball = class
@@ -18,7 +18,7 @@ type
     clr : TColor;
     procedure init(t, l, s, sp : integer);
     function update() : boolean;
-    function upravSmer(lastL, lastT: integer) : boolean;
+    function upravSmer(lastL : integer) : boolean;
     function odraz(lastL, odkial : integer) : integer;
     procedure resize(diff : integer);
   end;
@@ -27,20 +27,16 @@ implementation
 uses game, mainmenu;
 
 function Tball.update() : boolean;
-var lastT, lastL, i : integer;
+var lastL, i : integer;
 begin
-  lastT := ball.Top;
   lastL := ball.Left;
   for i := 1 to speed do begin
     ball.left:= ball.left + _round(sin(smer / 180 * pi), xleft);
     ball.top:= ball.top - _round(cos(smer / 180 * pi), yleft);
-    //outLog.outText(intToStr(ball.Left - lastL));
-    //outLog.outText(intToStr(ball.Top - lastT));
-    if (not upravSmer(lastL, lastT)) then begin
+    if (not upravSmer(lastL)) then begin
       update:= false;
       exit;
     end;
-    lastT := ball.Top;
     lastL := ball.Left;
   end;
   update := true;
@@ -51,7 +47,7 @@ begin
   end;
 end;
 
-function Tball.upravSmer(lastL, lastT: integer) : boolean;
+function Tball.upravSmer(lastL : integer) : boolean;
 var i, j, radius, sx, sy, kam : integer;
 begin
   upravSmer := true;
@@ -112,8 +108,8 @@ begin
 
             // drop bonus
             if random(roll) = 1 then begin
-              inc(rem[2]);
-              bonuses[rem[2]].init(j, i);
+              inc(remBonuses);
+              bonuses[remBonuses].init(j, i);
             end;
 
             // up and down -> side
