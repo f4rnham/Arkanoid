@@ -61,10 +61,10 @@ type
 var
   Fgame: TFgame;
   grid: array[0..2000,0..2000] of gridPoint;
-  bricks: array[0..5000] of TImage;
+  bricks: array[0..50020] of TImage;
   remBricks, remBonuses : integer;
-  bonuses : array[0..50000] of Tbonus;
-  balls : array[0..50000] of Tball;
+  bonuses : array[0..50020] of Tbonus;
+  balls : array[0..50020] of Tball;
   ballCnt: integer;
   pause, finished: boolean;
   pi: real;

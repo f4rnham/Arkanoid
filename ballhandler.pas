@@ -66,7 +66,7 @@ begin
   end;
 
   // spodok -> prehra
-  if (ball.Top {+ (ball.Height div 2)} >= Fgame.height) then begin
+  if (ball.Top >= Fgame.height) then begin
     upravSmer := false;
     exit();
   end;
@@ -130,6 +130,7 @@ end;
 
 function Tball.odraz(lastL, odkial : integer) : integer;
 begin
+  smer := smer + random(3) - 1;
   case odkial of
     1, 2 : begin // lava, prava
       odraz := 360 - smer;
@@ -174,8 +175,8 @@ end;
 
 procedure Tball.resize(diff : integer);
 begin
-  ball.Width:= max(1, ball.Width + diff);
-  ball.Height:= max(1, ball.Height + diff);
+  ball.Width:= max(5, ball.Width + diff);
+  ball.Height:= max(5, ball.Height + diff);
 
   ball.Picture.Bitmap.SetSize(ball.Width, ball.Height);
   ball.Canvas.Brush.Color:= Fgame.Color;
