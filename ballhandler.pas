@@ -14,7 +14,6 @@ type
     smer : integer;
     xleft, yleft : real;
     speed, updates : integer;
-    created : boolean;
     clr : TColor;
     procedure init(t, l, s, sp : integer);
     function update() : boolean;
@@ -154,7 +153,6 @@ end;
 procedure Tball.init(t, l, s, sp : integer);
 begin
   ball := TImage.Create(Fgame);
-  created := true;
   ball.Parent := Fgame;
   ball.Width := 10 + random(10);
   ball.Height := ball.Width;

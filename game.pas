@@ -111,8 +111,6 @@ begin
   if checked then roll := 2
   else roll := 10;
   // default
-  remBonuses := -1; // 0 bonuses falling
-  ballCnt := 0;
   modLife(0);
   finished := false;
   genj();
@@ -125,11 +123,10 @@ begin
   pause := true;
 
   // balls cleanup
-  for i := 0 to ballCnt do
-    if balls[i].created then begin
+  for i := 0 to ballCnt do begin
       balls[i].ball.Destroy();
-      balls[i].created:= false;
-    end;
+      balls[i] := Tball.Create;
+  end;
 
   // pad
   resizePad(64);
@@ -146,11 +143,10 @@ begin
   pause := false;
 
   // destroy bonuses
-  for i := 0 to remBonuses do
-    if bonuses[i].created then begin
+  for i := 0 to remBonuses do begin
       bonuses[i].bonus.Destroy();
-      bonuses[i].created:= false;
-    end;
+      bonuses[i] := Tbonus.Create;
+  end;
   remBonuses := -1;
 end;
 
@@ -173,14 +169,14 @@ end;
 
 procedure TFgame.addBrick(x, y : integer; farba : TColor);
 begin
-  bricks[remBricks] := TImage.Create(self);
+  bricks[remBricks] := TImage.Create(Fgame);
   bricks[remBricks].Parent := Self;
   bricks[remBricks].Left:= x;
   bricks[remBricks].top:= y;
   bricks[remBricks].Width := 18;
   bricks[remBricks].Height := 8;
   bricks[remBricks].Canvas.Brush.Color := farba;
-  bricks[remBricks].Canvas.FillRect(clientrect);
+  bricks[remBricks].Canvas.FillRect(bricks[remBricks].clientrect);
   addToGrid(bricks[remBricks], 0, remBricks);
   inc(remBricks);
 end;
@@ -190,6 +186,9 @@ var i : integer;
 begin
   Fgame.DoubleBuffered:= true;
   pause := true;
+  ballCnt := -1;
+  remBonuses := -1;
+  remBricks := -1;
   pi := 3.1415926535897932384626433832795;
   for i := 0 to 50000 do begin
     balls[i] := Tball.Create;
@@ -261,11 +260,9 @@ begin
       end;
 
       balls[i].ball.Destroy;
-      balls[i].created:= false;
-      if ballCnt <> 0 then begin
+      if ballCnt <> 0 then
         balls[i] := balls[ballCnt];
-        balls[ballCnt] := Tball.Create;
-      end;
+      balls[ballCnt] := Tball.Create;
       dec(ballCnt);
     end;
   end;
@@ -280,11 +277,9 @@ begin
       inc(i)
     else begin
       bonuses[i].bonus.Destroy;
-      bonuses[i].created:= false;
-      if remBonuses <> 0 then begin
+      if remBonuses <> 0 then
         bonuses[i] := bonuses[remBonuses];
-        bonuses[remBonuses] := Tbonus.Create;
-        end;
+      bonuses[remBonuses] := Tbonus.Create;
       dec(remBonuses);
     end;
 
@@ -352,7 +347,7 @@ end;
 procedure TFgame.despawnBricks();
 var i : integer;
 begin
-  for i := 0 to 5000 do
+  for i := 0 to 50000 do
     if bricks[i] <> NIL then begin
       removeFromGrid(bricks[i]);
       bricks[i].Destroy;

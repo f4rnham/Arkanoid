@@ -12,7 +12,6 @@ type
   Tbonus = class
     bonus : TImage;
     speed : integer;
-    created : boolean;
     what : integer;
     procedure init(t, l : integer);
     function update() : boolean;
@@ -24,7 +23,6 @@ uses game;
 procedure Tbonus.init(t, l : integer);
 begin
   bonus := TImage.Create(Fgame);
-  created := true;
   bonus.Parent := Fgame;
   bonus.Width := 20 + random(10);
   bonus.Height := bonus.Width;
