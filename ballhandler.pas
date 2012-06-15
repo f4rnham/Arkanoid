@@ -13,12 +13,14 @@ type
     ball : TImage;
     smer : integer;
     xleft, yleft : real;
-    speed : integer;
+    speed, updates : integer;
     created : boolean;
+    clr : TColor;
     procedure init(t, l, s, sp : integer);
     function update() : boolean;
     function upravSmer(lastL, lastT: integer) : boolean;
     function odraz(lastL, odkial : integer) : integer;
+    procedure resize(diff : integer);
   end;
 implementation
 
@@ -42,6 +44,11 @@ begin
     lastL := ball.Left;
   end;
   update := true;
+  inc(updates);
+  if updates > 300 then begin
+    speed := speed + 1;
+    updates := 0;
+  end;
 end;
 
 function Tball.upravSmer(lastL, lastT: integer) : boolean;
@@ -106,7 +113,7 @@ begin
             // drop bonus
             if random(roll) = 1 then begin
               inc(rem[2]);
-              bonuses[rem[2]].init(j, i, 1, 2);
+              bonuses[rem[2]].init(j, i);
             end;
 
             // up and down -> side
@@ -156,7 +163,8 @@ begin
   ball.Height := ball.Width;
   ball.Canvas.Brush.Color:= Fgame.Color;
   ball.Canvas.FillRect(ball.ClientRect);
-  ball.Canvas.Brush.Color := randomColor(Fgame.Color);
+  clr := randomColor(Fgame.Color);
+  ball.Canvas.Brush.Color := clr;
   ball.Canvas.Ellipse(0, 0, ball.Width, ball.Height);
   ball.Visible:= true;
   ball.Left:= l;
@@ -165,6 +173,19 @@ begin
   speed := sp;
   xleft := 0;
   yleft := 0;
+  updates := 0;
+end;
+
+procedure Tball.resize(diff : integer);
+begin
+  ball.Width:= max(1, ball.Width + diff);
+  ball.Height:= max(1, ball.Height + diff);
+
+  ball.Picture.Bitmap.SetSize(ball.Width, ball.Height);
+  ball.Canvas.Brush.Color:= Fgame.Color;
+  ball.Canvas.FillRect(ball.ClientRect);
+  ball.Canvas.Brush.Color:= clr;
+  ball.Canvas.Ellipse(0, 0, ball.Width, ball.Height);
 end;
 
 end.

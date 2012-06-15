@@ -6,12 +6,19 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos;
+  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos, math;
 type
 
   { TFgame }
 
   TFgame = class(TForm)
+    enlarge: TImage;
+    bigger: TImage;
+    smaller: TImage;
+    slow: TImage;
+    speedup: TImage;
+    three_balls: TImage;
+    small: TImage;
     livesCounter: TLabel;
     pad: TImage;
     score: TLabel;
@@ -39,6 +46,7 @@ type
     procedure spawnBall(x, y : integer);
     procedure updateBonus();
     procedure updateBalls();
+    procedure resizePad(size : integer);
   private
     { private declarations }
   public
@@ -69,6 +77,24 @@ var
 implementation
 
 uses mainmenu;
+
+procedure TFgame.resizePad(size : integer);
+var mid : integer;
+begin
+  removeFromGrid(pad);
+  mid := pad.Width div 2 + pad.Left;
+  pad.Width:= max(size, 2 * pad.Height);
+  pad.Picture.Bitmap.SetSize(pad.Width, pad.Height);
+  pad.Left:= mid - pad.Width div 2;
+  addToGrid(pad, 1, 0);
+  pad.Canvas.Brush.Color:= Color;
+  pad.Canvas.FillRect(pad.ClientRect);
+  pad.Canvas.Brush.Color := clLime;
+  pad.Canvas.Pen.Color:= clLime;
+  pad.Canvas.Ellipse(0, 0, pad.Height, pad.Height);
+  pad.Canvas.Rectangle(pad.Height div 2, 0, pad.Width - pad.Height div 2, pad.Height);
+  pad.Canvas.Ellipse(pad.Width - pad.Height, 0, pad.Width, pad.Height);
+end;
 
 procedure TFgame.spawnBall(x, y : integer);
 begin
@@ -108,6 +134,7 @@ begin
     end;
 
   // pad
+  resizePad(64);
   removeFromGrid(pad);
   pad.Left:= Fgame.Width div 2 - pad.Width div 2;
   pad.Top:= Fgame.Height - pad.Height - 10;
