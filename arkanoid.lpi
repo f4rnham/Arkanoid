@@ -34,17 +34,16 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="37">
+    <Units Count="38">
       <Unit0>
         <Filename Value="arkanoid.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="arkanoid"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="17" Y="1"/>
-        <UsageCount Value="109"/>
+        <CursorPos X="38" Y="16"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -55,9 +54,11 @@
         <UnitName Value="game"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="46" Y="20"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="79"/>
+        <CursorPos X="41" Y="88"/>
+        <FoldState Value=" T3jI0H5 piXjJ04316_"/>
+        <ComponentState Value="1"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -66,14 +67,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="106"/>
         <CursorPos X="10" Y="119"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit2>
       <Unit3>
         <Filename Value="C:\lazarus\fpc\2.4.2\source\rtl\objpas\sysutils\sysstr.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="821"/>
         <CursorPos X="73" Y="825"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\lazarus\lcl\graphics.pp"/>
@@ -81,21 +82,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="3" Y="240"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit4>
       <Unit5>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2414"/>
         <CursorPos X="1" Y="2427"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit5>
       <Unit6>
         <Filename Value="C:\lazarus\fpc\2.4.2\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1473"/>
         <CursorPos X="15" Y="1483"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit6>
       <Unit7>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
@@ -103,14 +104,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1335"/>
         <CursorPos X="15" Y="1348"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit7>
       <Unit8>
         <Filename Value="C:\lazarus\fpc\2.4.2\source\rtl\inc\mathh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="14" Y="76"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit8>
       <Unit9>
         <Filename Value="Unit2.pas"/>
@@ -119,43 +120,43 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="15"/>
-        <UsageCount Value="102"/>
+        <UsageCount Value="112"/>
       </Unit9>
       <Unit10>
         <Filename Value="unit1.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="347"/>
         <CursorPos X="25" Y="16"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\FPC\lazarus\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2408"/>
-        <CursorPos X="1" Y="2427"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="1179"/>
+        <CursorPos X="3" Y="1274"/>
+        <UsageCount Value="28"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\FPC\lazarus\lcl\include\customimage.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="1" Y="48"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\FPC\lazarus\fpc\2.4.2\source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="840"/>
         <CursorPos X="11" Y="859"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="28"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\FPC\lazarus\fpc\2.4.2\source\rtl\inc\system.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="537"/>
         <CursorPos X="3" Y="545"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="24"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\FPC\lazarus\lcl\customtimer.pas"/>
@@ -163,14 +164,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="140"/>
         <CursorPos X="1" Y="157"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit15>
       <Unit16>
         <Filename Value="C:\FPC\lazarus\lcl\interfaces\win32\win32callback.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2681"/>
         <CursorPos X="21" Y="2692"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit16>
       <Unit17>
         <Filename Value="mainmenu.pas"/>
@@ -180,9 +181,10 @@
         <UnitName Value="mainmenu"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="77"/>
+        <TopLine Value="35"/>
         <CursorPos X="5" Y="106"/>
-        <UsageCount Value="61"/>
+        <ComponentState Value="1"/>
+        <UsageCount Value="71"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit17>
@@ -191,15 +193,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="858"/>
         <CursorPos X="1" Y="877"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit18>
       <Unit19>
         <Filename Value="C:\FPC\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1839"/>
-        <CursorPos X="83" Y="1858"/>
-        <UsageCount Value="14"/>
+        <TopLine Value="1367"/>
+        <CursorPos X="14" Y="1386"/>
+        <UsageCount Value="13"/>
       </Unit19>
       <Unit20>
         <Filename Value="errorreporting.pas"/>
@@ -209,9 +211,10 @@
         <UnitName Value="errorreporting"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
+        <TopLine Value="4"/>
         <CursorPos X="9" Y="35"/>
-        <UsageCount Value="49"/>
+        <ComponentState Value="1"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit20>
@@ -225,7 +228,8 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="76" Y="63"/>
-        <UsageCount Value="48"/>
+        <ComponentState Value="1"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit21>
@@ -237,9 +241,10 @@
         <UnitName Value="highscore"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="106"/>
-        <CursorPos X="3" Y="110"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1"/>
+        <CursorPos X="33" Y="22"/>
+        <ComponentState Value="1"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit22>
@@ -251,18 +256,20 @@
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="20" Y="50"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="ballhandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ballhandler"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
-        <CursorPos X="40" Y="93"/>
-        <UsageCount Value="45"/>
+        <TopLine Value="17"/>
+        <CursorPos X="31" Y="21"/>
+        <FoldState Value=" T3k50K@"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit24>
       <Unit25>
@@ -270,30 +277,30 @@
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="23" Y="185"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\FPC\lazarus\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1872"/>
-        <CursorPos X="43" Y="1891"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1005"/>
+        <CursorPos X="15" Y="1024"/>
+        <UsageCount Value="14"/>
       </Unit26>
       <Unit27>
         <Filename Value="C:\FPC\lazarus\fpc\2.4.2\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="370"/>
         <CursorPos X="15" Y="389"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit27>
       <Unit28>
         <Filename Value="C:\FPC\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="588"/>
-        <CursorPos X="18" Y="607"/>
-        <UsageCount Value="15"/>
+        <TopLine Value="621"/>
+        <CursorPos X="16" Y="640"/>
+        <UsageCount Value="14"/>
       </Unit28>
       <Unit29>
         <Filename Value="C:\FPC\lazarus\fpc\2.4.2\source\rtl\objpas\objpas.pp"/>
@@ -301,14 +308,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="8" Y="28"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit29>
       <Unit30>
         <Filename Value="C:\FPC\lazarus\fpc\2.4.2\source\rtl\win\wininc\defines.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4609"/>
         <CursorPos X="6" Y="4628"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit30>
       <Unit31>
         <Filename Value="bonushandler.pas"/>
@@ -316,9 +323,9 @@
         <UnitName Value="bonushandler"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="1" Y="26"/>
-        <UsageCount Value="32"/>
+        <TopLine Value="61"/>
+        <CursorPos X="24" Y="98"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -326,7 +333,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit32>
       <Unit33>
@@ -337,7 +344,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="1" Y="46"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
@@ -347,132 +354,151 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="13" Y="35"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="36"/>
       </Unit34>
       <Unit35>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3475"/>
         <CursorPos X="1" Y="3496"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit35>
       <Unit36>
         <Filename Value="C:\FPC\lazarus\lcl\include\wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4690"/>
         <CursorPos X="1" Y="4709"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit36>
+      <Unit37>
+        <Filename Value="C:\FPC\lazarus\lcl\include\canvas.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="397"/>
+        <CursorPos X="3" Y="401"/>
+        <UsageCount Value="10"/>
+      </Unit37>
     </Units>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="game.pas"/>
-        <Caret Line="270" Column="26" TopLine="251"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="100" Column="28" TopLine="70"/>
       </Position1>
       <Position2>
-        <Filename Value="game.pas"/>
-        <Caret Line="264" Column="6" TopLine="251"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="111" Column="6" TopLine="80"/>
       </Position2>
       <Position3>
         <Filename Value="game.pas"/>
-        <Caret Line="268" Column="15" TopLine="251"/>
+        <Caret Line="125" Column="17" TopLine="93"/>
       </Position3>
       <Position4>
         <Filename Value="game.pas"/>
-        <Caret Line="9" Column="73" TopLine="1"/>
+        <Caret Line="127" Column="69" TopLine="68"/>
       </Position4>
       <Position5>
         <Filename Value="game.pas"/>
-        <Caret Line="264" Column="12" TopLine="251"/>
+        <Caret Line="128" Column="69" TopLine="69"/>
       </Position5>
       <Position6>
         <Filename Value="game.pas"/>
-        <Caret Line="270" Column="43" TopLine="253"/>
+        <Caret Line="82" Column="27" TopLine="70"/>
       </Position6>
       <Position7>
         <Filename Value="game.pas"/>
-        <Caret Line="271" Column="30" TopLine="251"/>
+        <Caret Line="85" Column="31" TopLine="64"/>
       </Position7>
       <Position8>
         <Filename Value="game.pas"/>
-        <Caret Line="260" Column="38" TopLine="251"/>
+        <Caret Line="119" Column="80" TopLine="66"/>
       </Position8>
       <Position9>
         <Filename Value="game.pas"/>
-        <Caret Line="272" Column="26" TopLine="257"/>
+        <Caret Line="83" Column="18" TopLine="64"/>
       </Position9>
       <Position10>
-        <Filename Value="log.pas"/>
-        <Caret Line="17" Column="15" TopLine="1"/>
+        <Filename Value="game.pas"/>
+        <Caret Line="70" Column="83" TopLine="64"/>
       </Position10>
       <Position11>
-        <Filename Value="ballhandler.pas"/>
-        <Caret Line="105" Column="21" TopLine="92"/>
+        <Filename Value="game.pas"/>
+        <Caret Line="90" Column="13" TopLine="64"/>
       </Position11>
       <Position12>
-        <Filename Value="bonushandler.pas"/>
-        <Caret Line="26" Column="1" TopLine="13"/>
+        <Filename Value="game.pas"/>
+        <Caret Line="83" Column="51" TopLine="67"/>
       </Position12>
       <Position13>
         <Filename Value="game.pas"/>
-        <Caret Line="267" Column="17" TopLine="252"/>
+        <Caret Line="84" Column="51" TopLine="68"/>
       </Position13>
       <Position14>
-        <Filename Value="game.pas"/>
-        <Caret Line="271" Column="25" TopLine="260"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="146" Column="34" TopLine="117"/>
       </Position14>
       <Position15>
-        <Filename Value="game.pas"/>
-        <Caret Line="272" Column="86" TopLine="260"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="132" Column="14" TopLine="108"/>
       </Position15>
       <Position16>
         <Filename Value="game.pas"/>
-        <Caret Line="60" Column="27" TopLine="54"/>
+        <Caret Line="86" Column="51" TopLine="86"/>
       </Position16>
       <Position17>
         <Filename Value="game.pas"/>
-        <Caret Line="272" Column="85" TopLine="245"/>
+        <Caret Line="30" Column="22" TopLine="13"/>
       </Position17>
       <Position18>
-        <Filename Value="log.pas"/>
-        <Caret Line="46" Column="1" TopLine="12"/>
+        <Filename Value="game.pas"/>
+        <Caret Line="31" Column="22" TopLine="13"/>
       </Position18>
       <Position19>
-        <Filename Value="game.pas"/>
-        <Caret Line="265" Column="7" TopLine="260"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="79" Column="37" TopLine="61"/>
       </Position19>
       <Position20>
-        <Filename Value="game.pas"/>
-        <Caret Line="212" Column="58" TopLine="173"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="18" Column="13" TopLine="9"/>
       </Position20>
       <Position21>
-        <Filename Value="game.pas"/>
-        <Caret Line="63" Column="8" TopLine="42"/>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="163" Column="36" TopLine="37"/>
       </Position21>
       <Position22>
-        <Filename Value="game.pas"/>
-        <Caret Line="118" Column="20" TopLine="96"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="160" Column="60" TopLine="138"/>
       </Position22>
       <Position23>
-        <Filename Value="game.pas"/>
-        <Caret Line="9" Column="73" TopLine="1"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="167" Column="23" TopLine="140"/>
       </Position23>
       <Position24>
-        <Filename Value="game.pas"/>
-        <Caret Line="276" Column="19" TopLine="250"/>
+        <Filename Value="highscore.pas"/>
+        <Caret Line="89" Column="50" TopLine="62"/>
       </Position24>
       <Position25>
-        <Filename Value="game.pas"/>
-        <Caret Line="20" Column="46" TopLine="1"/>
+        <Filename Value="arkanoid.lpr"/>
+        <Caret Line="1" Column="17" TopLine="1"/>
       </Position25>
       <Position26>
-        <Filename Value="game.pas"/>
-        <Caret Line="23" Column="46" TopLine="4"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="160" Column="38" TopLine="132"/>
       </Position26>
       <Position27>
-        <Filename Value="game.pas"/>
-        <Caret Line="20" Column="46" TopLine="1"/>
+        <Filename Value="bonushandler.pas"/>
+        <Caret Line="9" Column="26" TopLine="1"/>
       </Position27>
+      <Position28>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="116" Column="40" TopLine="94"/>
+      </Position28>
+      <Position29>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="21" Column="31" TopLine="2"/>
+      </Position29>
+      <Position30>
+        <Filename Value="ballhandler.pas"/>
+        <Caret Line="9" Column="31" TopLine="1"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

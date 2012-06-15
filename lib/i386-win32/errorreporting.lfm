@@ -1,17 +1,18 @@
 object Error: TError
-  Left = 402
-  Height = 240
-  Top = 513
-  Width = 320
+  Left = 654
+  Height = 503
+  Top = 211
+  Width = 374
   Caption = 'Error'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 503
+  ClientWidth = 374
+  Position = poMainFormCenter
   LCLVersion = '0.9.30'
   object errText: TStaticText
     Left = 30
-    Height = 152
+    Height = 335
     Top = 34
-    Width = 257
+    Width = 297
     Caption = 'NULL'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Height = -24
@@ -23,9 +24,9 @@ object Error: TError
     TabOrder = 0
   end
   object ok: TButton
-    Left = 116
+    Left = 135
     Height = 34
-    Top = 196
+    Top = 391
     Width = 84
     Caption = 'OK'
     OnClick = okClick

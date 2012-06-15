@@ -52,7 +52,6 @@
         <ComponentName Value="Fgame"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="game"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -179,10 +178,11 @@
         <ComponentName Value="Fmenu"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="mainmenu"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="90"/>
-        <CursorPos X="3" Y="106"/>
+        <TopLine Value="77"/>
+        <CursorPos X="5" Y="106"/>
         <UsageCount Value="61"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

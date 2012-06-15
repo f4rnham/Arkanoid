@@ -1,8 +1,10 @@
 object highScore: ThighScore
-  Left = 317
+  Left = 656
   Height = 451
   Top = 204
   Width = 487
+  Align = alTop
+  BorderStyle = bsSingle
   Caption = 'highScore'
   ClientHeight = 451
   ClientWidth = 487

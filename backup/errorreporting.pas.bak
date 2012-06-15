@@ -29,7 +29,7 @@ implementation
 
 {$R *.lfm}
 
-procedure TError.sendEerror(err : string);
+procedure TError.sendError(err : string);
 begin
   errText.Caption:= err;
   ShowModal;
