@@ -94,9 +94,9 @@ begin
             end;
 
             if i - Fgame.pad.Left < Fgame.pad.Width div 2 then
-              smer := 290 + (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left)
+              smer := 290 + round((70 / (Fgame.pad.Width / 2)) * (i - Fgame.pad.Left))
             else
-              smer := (70 div (Fgame.pad.Width div 2)) * (i - Fgame.pad.Left - Fgame.pad.Width div 2);
+              smer := round((70 / (Fgame.pad.Width / 2)) * (i - Fgame.pad.Left - Fgame.pad.Width / 2));
 
             Fgame.addScore(1);
             exit;
