@@ -161,6 +161,9 @@ begin
   clr := randomColor(Fgame.Color);
   ball.Canvas.Brush.Color := clr;
   ball.Canvas.Ellipse(0, 0, ball.Width, ball.Height);
+  ball.Transparent:= true;
+  ball.Picture.Bitmap.Transparent:= true;
+  ball.Picture.Bitmap.TransparentColor:= Fgame.Color;
   ball.Visible:= true;
   ball.Left:= l;
   ball.Top:= t;

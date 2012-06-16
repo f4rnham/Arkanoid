@@ -30,6 +30,9 @@ begin
   bonus.Canvas.FillRect(bonus.ClientRect);
   bonus.Canvas.Brush.Color := randomColor(Fgame.Color);
   bonus.Proportional:= true;
+  bonus.Transparent:= true;
+  bonus.Picture.Bitmap.Transparent:= true;
+  bonus.Picture.Bitmap.TransparentColor:= Fgame.Color;
   what := random(11)+1;
   case what of
     1 : begin
