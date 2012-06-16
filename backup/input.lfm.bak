@@ -1,11 +1,12 @@
 object input: Tinput
-  Left = 730
-  Height = 240
-  Top = 305
-  Width = 320
+  Left = 702
+  Height = 278
+  Top = 304
+  Width = 336
   Caption = 'meno'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 278
+  ClientWidth = 336
+  Position = poMainFormCenter
   LCLVersion = '0.9.30'
   object inp: TEdit
     Left = 56

@@ -1,11 +1,11 @@
 object Fmenu: TFmenu
-  Left = 966
-  Height = 430
-  Top = 91
-  Width = 442
+  Left = 745
+  Height = 506
+  Top = 215
+  Width = 474
   Caption = 'Hlavne menu'
-  ClientHeight = 430
-  ClientWidth = 442
+  ClientHeight = 506
+  ClientWidth = 474
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '0.9.30'
