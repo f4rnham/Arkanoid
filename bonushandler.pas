@@ -109,7 +109,7 @@ begin
     exit;
 
   // too low
-  if bonus.Top + bonus.Height > Fgame.pad.Top + Fgame.pad.Height then begin
+  if bonus.Top + bonus.Height > Fgame.Height - Fgame.status.Height then begin
     update := false;
     exit;
   end;

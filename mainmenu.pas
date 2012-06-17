@@ -60,7 +60,7 @@ begin
   if infilives.Checked then
     life := -1
   else
-    if (not validate(lives, life, 'Neplatny pocet zivotov. Maximum je 99')) then
+    if (not validate(lives, life, 'Neplatny pocet zivotov. Maximum je 99, minimum 1.')) then
       exit;
 
   startGame(fillPercent.Position, life);
@@ -90,7 +90,7 @@ function TFmenu.validate(co : TEdit; var kam : integer; err : string) : boolean;
 var e : integer;
 begin
   Val(co.Caption, kam, e);
-  if (e = 0) and (kam < 100) then begin
+  if (e = 0) and (kam < 100) and (kam > 0) then begin
     validate := true;
     exit;
   end;

@@ -105,7 +105,7 @@ begin
 end;
 
 function ThighScore.loadHS() : boolean;
-var i, j, err : integer;
+var i, err : integer;
 begin
   for i := 0 to 15 do begin
     Delete(names[i], 1, length(names[i]));

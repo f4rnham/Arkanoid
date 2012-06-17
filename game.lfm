@@ -1,12 +1,12 @@
 object Fgame: TFgame
   Cursor = crNone
-  Left = 488
-  Height = 576
-  Top = 244
+  Left = 486
+  Height = 590
+  Top = 202
   Width = 678
   BorderStyle = bsSingle
   Caption = 'mY gAmE'
-  ClientHeight = 576
+  ClientHeight = 590
   ClientWidth = 678
   Color = clWhite
   OnClick = FormClick
@@ -24,22 +24,6 @@ object Fgame: TFgame
     ParentShowHint = False
     Stretch = True
     Transparent = True
-  end
-  object score: TLabel
-    Left = 496
-    Height = 16
-    Top = 8
-    Width = 7
-    Caption = '0'
-    ParentColor = False
-  end
-  object livesCounter: TLabel
-    Left = 22
-    Height = 16
-    Top = 18
-    Width = 26
-    Caption = '#INF'
-    ParentColor = False
   end
   object enlarge: TImage
     Left = 37
@@ -1461,6 +1445,29 @@ object Fgame: TFgame
     }
     Transparent = True
     Visible = False
+  end
+  object status: TStatusBar
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Side = asrCenter
+    Left = 0
+    Height = 23
+    Top = 567
+    Width = 678
+    Panels = <    
+      item
+        Text = '#INF'
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Text = '0'
+        Width = 200
+      end>
+    SimplePanel = False
   end
   object Timer1: TTimer
     Interval = 1

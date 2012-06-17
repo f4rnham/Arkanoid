@@ -17,11 +17,10 @@ type
     smaller: TImage;
     slow: TImage;
     speedup: TImage;
+    status: TStatusBar;
     three_balls: TImage;
     small: TImage;
-    livesCounter: TLabel;
     pad: TImage;
-    score: TLabel;
     Timer1: TTimer;
     procedure FormClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -111,6 +110,7 @@ begin
   if checked then roll := 2
   else roll := 10;
   // default
+  status.Panels[0].Text:= '#INF';
   modLife(0);
   finished := false;
   genj();
@@ -132,7 +132,7 @@ begin
   resizePad(64);
   removeFromGrid(pad);
   pad.Left:= Fgame.Width div 2 - pad.Width div 2;
-  pad.Top:= Fgame.Height - pad.Height - 10;
+  pad.Top:= Fgame.Height - status.Height - pad.Height - 10;
   addToGrid(pad, 1, 0);
 
   ballCnt := 0;
@@ -158,7 +158,7 @@ begin
   despawnBricks();
   remBricks := 0;
   for i := 1 to pol - 1 do
-    for j := 1 to ((height - 100) div 10) - ((height - 100) div (10 * 10)) - 1 do
+    for j := 1 to ((Height - status.Height - 100) div 10) - ((Height - status.Height - 100) div (10 * 10)) - 1 do
       if (random(100) < fillPercent) then begin
         tmpColor := randomColor(Fgame.Color);
         addBrick(i * 20 + i, j * 10 + j, tmpColor);
@@ -317,7 +317,7 @@ end;
 procedure TFgame.win();
 begin
   finished := true;
-  if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
+  if (FhighScore.updateHS(Pname, _Val(status.Panels[2].Text))) then
     FhighScore.showHS();
   Fgame.Hide;
   Fmenu.Show;
@@ -326,9 +326,9 @@ end;
 procedure TFgame.lose();
 begin
   finished := true;
-  if (FhighScore.updateHS(Pname, _Val(score.Caption))) then
+  if (FhighScore.updateHS(Pname, _Val(status.Panels[2].Text))) then
     FhighScore.showHS();
-  score.Caption:= IntToStr(0);
+  status.Panels[2].Text:= IntToStr(0);
   Fgame.Hide;
   Fmenu.Show;
 end;
@@ -359,13 +359,13 @@ procedure TFgame.modlife(kolko : integer);
 begin
   if lives = -1 then exit;
   lives := lives + kolko;
-  livesCounter.Caption:= IntToStr(lives);
+  status.Panels[0].Text := IntToStr(lives);
   if (lives < 1) then lose();
 end;
 
 procedure TFgame.addScore(kolko : integer);
 begin
-  score.Caption := IntToStr(_Val(score.Caption) + kolko);
+  status.Panels[2].Text := IntToStr(_Val(status.Panels[2].Text) + kolko);
 end;
 
 procedure TFgame.removeFromGrid(var what : TImage);

@@ -14,10 +14,10 @@ object Error: TError
     Top = 34
     Width = 297
     Caption = 'NULL'
-    Font.CharSet = EASTEUROPE_CHARSET
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -24
-    Font.Name = 'Arial Narrow'
-    Font.Pitch = fpVariable
+    Font.Name = 'Consolas'
+    Font.Pitch = fpFixed
     Font.Quality = fqDraft
     ParentBidiMode = False
     ParentFont = False

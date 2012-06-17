@@ -65,7 +65,7 @@ begin
   end;
 
   // spodok -> prehra
-  if (ball.Top >= Fgame.height) then begin
+  if (ball.Top >= Fgame.height - Fgame.status.Height) then begin
     upravSmer := false;
     exit();
   end;
