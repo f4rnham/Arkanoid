@@ -9,9 +9,6 @@ uses
   ComCtrls, Buttons, game, errorreporting, input, highscore, log;
 
 type
-
-  { TFmenu }
-
   TFmenu = class(TForm)
     bonus: TCheckBox;
     hs: TButton;
@@ -29,16 +26,14 @@ type
     procedure startCustomClick(Sender: TObject);
     function validate(co : TEdit; var kam : integer; err : string) : boolean;
     procedure startGame(a, b : integer);
-  private
-    { private declarations }
   public
-    { public declarations }
+    nejm : string;
+    score : int64;
   end; 
 
 var
   Fmenu: TFmenu;
-  nejm : string;
-  score : int64;
+
   outLog : Tlog;
 implementation
 

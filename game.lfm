@@ -5,7 +5,7 @@ object Fgame: TFgame
   Top = 202
   Width = 678
   BorderStyle = bsSingle
-  Caption = 'mY gAmE'
+  Caption = 'Arkanoid'
   ClientHeight = 590
   ClientWidth = 678
   Color = clWhite
@@ -1465,7 +1465,15 @@ object Fgame: TFgame
       end    
       item
         Text = '0'
-        Width = 200
+        Width = 500
+      end    
+      item
+        Text = '0'
+        Width = 25
+      end    
+      item
+        Text = '0'
+        Width = 25
       end>
     SimplePanel = False
   end

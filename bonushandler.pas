@@ -79,9 +79,7 @@ begin
     11 : begin
       bonus.Picture := Fgame.smaller.Picture;
     end;
-
-
-    end;
+  end;
   //1 score + 100
   //2 score + 1000
   //3 1 ball
@@ -109,7 +107,7 @@ begin
     exit;
 
   // too low
-  if bonus.Top + bonus.Height > Fgame.Height - Fgame.status.Height then begin
+  if bonus.Top + bonus.Height > Fgame.absHeight then begin
     update := false;
     exit;
   end;
@@ -122,47 +120,28 @@ begin
   update := false;
   // do something
   case what of
-    1 : begin
-      Fgame.addScore(100);
-    end;
-    2 : begin
-      Fgame.addScore(1000);
-    end;
-    3 : begin
-      Fgame.spawnBall(balls[0].ball.Left, balls[0].ball.Top);
-    end;
-    4 : begin
+    1 : Fgame.addScore(100);
+    2 : Fgame.addScore(1000);
+    3 : Fgame.spawnBall(Fgame.balls[0].ball.Left, Fgame.balls[0].ball.Top);
+    4 :
       for i := 0 to 2 do
-        Fgame.spawnBall(balls[0].ball.Left, balls[0].ball.Top);
-    end;
-    5 : begin
-    end;
-    6 : begin
-      Fgame.resizePad(Fgame.pad.Width + 20);
-    end;
-    7 : begin
-      Fgame.resizePad(Fgame.pad.Width - 20);
-    end;
-    8 : begin
-      for i := 0 to ballCnt do
-        balls[i].speed := balls[i].speed + 3;
-    end;
-    9 : begin
-      for i := 0 to ballCnt do
-        balls[i].speed := max(1, balls[i].speed - 3);
-    end;
-    10 : begin
-      for i := 0 to ballCnt do
-        balls[i].resize(5);
-    end;
-    11 : begin
-      for i := 0 to ballCnt do
-        balls[i].resize(-5);
-    end;
+        Fgame.spawnBall(Fgame.balls[0].ball.Left, Fgame.balls[0].ball.Top);
+    5 : begin  end;
+    6 : Fgame.resizePad(Fgame.pad.Width + 20);
+    7 : Fgame.resizePad(Fgame.pad.Width - 20);
+    8 :
+      for i := 0 to Fgame.ballCnt do
+        Fgame.balls[i].speed := Fgame.balls[i].speed + 3;
+    9 :
+      for i := 0 to Fgame.ballCnt do
+        Fgame.balls[i].speed := max(1, Fgame.balls[i].speed - 3);
+    10 :
+      for i := 0 to Fgame.ballCnt do
+        Fgame.balls[i].resize(5);
+    11 :
+      for i := 0 to Fgame.ballCnt do
+        Fgame.balls[i].resize(-5);
   end;
-
-
-
 end;
 
 end.

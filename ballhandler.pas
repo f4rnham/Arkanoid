@@ -23,7 +23,7 @@ type
   end;
 implementation
 
-uses game, mainmenu;
+uses game;
 
 function Tball.update() : boolean;
 var lastL, i : integer;
@@ -47,7 +47,7 @@ begin
 end;
 
 function Tball.upravSmer(lastL : integer) : boolean;
-var i, j, radius, sx, sy, kam : integer;
+var i, j, radius, radius2, sx, sy, kam : integer;
 begin
   upravSmer := true;
 // Kraje hracieho pola
@@ -65,7 +65,7 @@ begin
   end;
 
   // spodok -> prehra
-  if (ball.Top >= Fgame.height - Fgame.status.Height) then begin
+  if (ball.Top >= Fgame.absHeight) then begin
     upravSmer := false;
     exit();
   end;
@@ -74,19 +74,20 @@ begin
   sx := (2 * ball.Left + ball.Width) div 2 ;
   sy := (2 * ball.Top + ball.Height) div 2 ;
   radius := sy - ball.Top;
+  radius2 := radius * radius;
 
   for i := ball.Left to ball.Left + ball.Width do
     for j := ball.Top to ball.Top + ball.Height do
       begin
-        // is not within ball
-        if ((i - sx) * (i - sx) + (j - sy) * (j - sy) > radius * radius) then
-          continue;
-
         // empty grid point
-        if grid[i][j].typ = -1 then
+        if Fgame.grid[i][j].typ = -1 then
           continue;
 
-        case grid[i][j].typ of
+        // is not within ball
+        if sqr(i - sx) + sqr(j - sy) > radius2 then
+          continue;
+
+        case Fgame.grid[i][j].typ of
           1 : begin // pad
             if ball.Top + ball.Height < Fgame.pad.Top - 2 then begin // odraz od steny padu
               smer := odraz(lastL, 1);
@@ -102,20 +103,20 @@ begin
             exit;
           end;
           0 : begin // tehla
-            Fgame.despawnBrick(grid[i][j].id);
+            Fgame.despawnBrick(Fgame.grid[i][j].id);
             Fgame.addScore(10);
 
             // drop bonus
-            if random(roll) = 1 then begin
-              inc(remBonuses);
-              bonuses[remBonuses].init(j, i);
+            if random(Fgame.roll) = 1 then begin
+              inc(Fgame.remBonuses);
+              Fgame.bonuses[Fgame.remBonuses].init(j, i);
             end;
 
             // up and down -> side
-            if (grid[i][j + 1].typ <> -1) and (grid[i][j - 1].typ <> -1) then
+            if (Fgame.grid[i][j + 1].typ <> -1) and (Fgame.grid[i][j - 1].typ <> -1) then
                kam := 1
             else
-              if grid[i][j + 1].typ <> -1 then // horna stena
+              if Fgame.grid[i][j + 1].typ <> -1 then // horna stena
                 kam := 4
               else // spodna
                 kam := 3;

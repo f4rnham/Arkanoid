@@ -6,10 +6,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, highscore, helpers, ballhandler, bonushandler, dos, math;
-type
+  ExtCtrls, highscore, helpers, ballhandler, bonushandler, dos, math;
 
-  { TFgame }
+type
+  gridPoint = record
+    typ : integer;
+    id : integer;
+  end;
 
   TFgame = class(TForm)
     enlarge: TImage;
@@ -46,30 +49,23 @@ type
     procedure updateBonus();
     procedure updateBalls();
     procedure resizePad(size : integer);
-  private
-    { private declarations }
   public
-    { public declarations }
-  end;
-type
-  gridPoint = record
-    typ : integer;
-    id : integer;
+    absHeight: integer;
+    grid: array[0..2000,0..2000] of gridPoint;
+    bricks: array[0..50020] of TImage;
+    remBricks, remBonuses : integer;
+    bonuses : array[0..50020] of Tbonus;
+    balls : array[0..50020] of Tball;
+    ballCnt: integer;
+    pause, finished: boolean;
+    pi: real;
+    lives, fillPercent: integer;
+    Pname : string;
+    roll, delayedCleanup, catched : integer;
   end;
 
 var
   Fgame: TFgame;
-  grid: array[0..2000,0..2000] of gridPoint;
-  bricks: array[0..50020] of TImage;
-  remBricks, remBonuses : integer;
-  bonuses : array[0..50020] of Tbonus;
-  balls : array[0..50020] of Tball;
-  ballCnt: integer;
-  pause, finished: boolean;
-  pi: real;
-  lives, fillPercent: integer;
-  Pname : string;
-  roll, delayedCleanup, catched : integer;
 
 implementation
 
@@ -132,7 +128,7 @@ begin
   resizePad(64);
   removeFromGrid(pad);
   pad.Left:= Fgame.Width div 2 - pad.Width div 2;
-  pad.Top:= Fgame.Height - status.Height - pad.Height - 10;
+  pad.Top:= Fgame.absHeight - pad.Height - 10;
   addToGrid(pad, 1, 0);
 
   ballCnt := 0;
@@ -158,7 +154,7 @@ begin
   despawnBricks();
   remBricks := 0;
   for i := 1 to pol - 1 do
-    for j := 1 to ((Height - status.Height - 100) div 10) - ((Height - status.Height - 100) div (10 * 10)) - 1 do
+    for j := 1 to ((absHeight - 100) div 10) - ((absHeight - 100) div (10 * 10)) - 1 do
       if (random(100) < fillPercent) then begin
         tmpColor := randomColor(Fgame.Color);
         addBrick(i * 20 + i, j * 10 + j, tmpColor);
@@ -184,6 +180,7 @@ end;
 procedure TFgame.FormCreate(Sender: TObject);
 var i : integer;
 begin
+  absHeight := Fgame.Height - Fgame.status.Height;
   Fgame.DoubleBuffered:= true;
   pause := true;
   ballCnt := -1;
@@ -295,7 +292,7 @@ begin
     updateBalls();
     getTime(Oh, Om, Os, Oms);
     outLog.outText('ball ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
-    Fgame.Caption:= intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms));
+    Fgame.status.Panels[3].Text:= intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms));
     outLog.outInt(ballCnt);
 
     // update bonuses
@@ -303,6 +300,7 @@ begin
     updateBonus();
     getTime(Oh, Om, Os, Oms);
     outLog.outText('bonus ' + intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms)));
+    Fgame.status.Panels[4].Text:= intToStr(Oh * 3600 * 100 + Om * 60 * 100 + Os * 100 + Oms - (h * 3600 * 100 + m * 60 * 100 + s * 100 + ms));
     outLog.outInt(remBonuses);
   end;
 

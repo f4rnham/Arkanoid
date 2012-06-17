@@ -9,9 +9,6 @@ uses
   ExtCtrls, errorreporting, process, Classes;
 
 type
-
-  { ThighScore }
-
   ThighScore = class(TForm)
     cont: TButton;
     status: TStaticText;
@@ -22,17 +19,14 @@ type
     function loadHS() : boolean;
     function updateHS(nejm : string; score : int64) : boolean;
     function runProcess(args : string) : boolean;
-  private
-    { private declarations }
   public
-    { public declarations }
+    f : Text;
+    names : array[0..15] of string;
+    scores : array[0..15] of longint;
   end; 
 
 var
   FhighScore: ThighScore;
-  f : Text;
-  names : array[0..15] of string;
-  scores : array[0..15] of longint;
 
 implementation
 
